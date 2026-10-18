@@ -1,0 +1,1011 @@
+/* Общие стили Петербурга и базовая разметка остальных сцен. Порядок слоёв каскада важен: тематические переопределения подключаются позже. */
+@layer reset, palette, architecture, typography, engraving, responsive, motion;
+/* Минимальный сброс браузерных отступов и единая модель размеров для HTML и SVG. */
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  body, h1, p, figure { margin: 0; }
+  svg { display: block; max-inline-size: 100%; }
+}
+/* Цвета оформлены переменными: отдельная сцена может заменить палитру, не дублируя все правила. */
+@layer palette {
+  :root {
+    color-scheme: light;
+    --paper: #f3eddf;
+    --paper-light: #fffaf0;
+    --ink: #113e48;
+    --sea: #124e53;
+    --sea-dark: #08373e;
+    --gold: #a78a52;
+    --stone: #e8ddc6;
+    font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    color: var(--ink);
+    background: var(--sea-dark);
+  }
+  ::selection { color: var(--paper-light); background: var(--sea); }
+  body { min-block-size: 100svh; }
+  .svg-library { position: absolute; inline-size: 0; block-size: 0; overflow: hidden; }
+  .site {
+    inline-size: 100%; min-block-size: 100svh;
+    display: grid; grid-template-rows: auto 1fr auto;
+    background: var(--paper);
+  }
+}
+/* Архитектурная рамка собрана из отдельных деталей; их можно складывать независимо при переходе. */
+@layer architecture {
+  .masthead {
+    min-block-size: 76px; padding: 12px 35px;
+    display: grid; grid-template-columns: 64px 1fr 46px;
+    align-items: center; gap: 30px;
+    border-block-end: 3px double var(--gold);
+  }
+  .small-seal {
+    display: grid; place-items: center; inline-size: 46px; aspect-ratio: 1;
+    border: 1px solid var(--gold); border-radius: 50%; outline: 1px solid var(--gold);
+    outline-offset: 4px; font-size: 23px; position: relative;
+  }
+  .small-seal::before, .small-seal::after {
+    content: "✦"; position: absolute; color: var(--gold); font-size: 13px;
+  }
+  .small-seal::before { inset-inline-start: -19px; }
+  .small-seal::after { inset-inline-end: -19px; }
+  .header-title { display: flex; align-items: center; gap: 28px; justify-content: center; }
+  .header-title::before, .header-title::after {
+    content: ""; flex: 1; block-size: 1px; max-inline-size: 400px;
+    background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold));
+  }
+  .header-title::after { rotate: 180deg; }
+  .compass { inline-size: 43px; color: var(--ink); }
+  .hero {
+    position: relative; isolation: isolate; container-type: inline-size;
+    min-block-size: 810px; overflow: clip;
+    background:
+      radial-gradient(ellipse at 50% 25%, #fffaf099, transparent 65%),
+      repeating-linear-gradient(0deg, transparent 0 4px, #90734403 4px 5px), var(--paper);
+  }
+  .wall {
+    position: absolute; inset-block: 0; inline-size: 10%; z-index: 2;
+    background: linear-gradient(90deg, #052e3670, transparent 70%), var(--sea);
+    border-inline-end: 5px double var(--gold);
+  }
+  .wall-right { inset-inline-end: 0; scale: -1 1; }
+  .wall-pattern { inline-size: 100%; block-size: 100%; opacity: .2; color: #b7ccc0; }
+  .pediment {
+    position: absolute; inset-block-start: 0; inset-inline-start: 3%;
+    inline-size: 29%; block-size: 170px; pointer-events: none; z-index: 3;
+  }
+  .pediment-right { inset-inline-start: auto; inset-inline-end: 3%; scale: -1 1; }
+  .pediment svg { inline-size: 100%; block-size: 100%; overflow: visible; }
+  .column {
+    position: absolute; inset-block: 92px 0; inset-inline-start: 2.5%;
+    inline-size: 10%; max-inline-size: 145px; display: flex;
+    align-items: center; flex-direction: column; z-index: 3;
+    filter: drop-shadow(4px 3px 2px #193a3c25);
+  }
+  .column-right { inset-inline-start: auto; inset-inline-end: 2.5%; }
+  .abacus { inline-size: 100%; block-size: 26px; flex-shrink: 0;
+    background: linear-gradient(var(--paper-light) 0 12%, #afa48e 13% 19%, var(--stone) 20% 63%, #a49c89 64% 70%, var(--paper-light) 71% 78%, #c3b79f 79%);
+    border: 1px solid #9a927f; box-shadow: 0 2px 0 var(--paper-light);
+  }
+  .capital { inline-size: 95%; block-size: 87px; flex-shrink: 0; color: #83795e; }
+  .shaft {
+    inline-size: 67%; flex: 1; min-block-size: 250px; position: relative;
+    background: repeating-linear-gradient(90deg, #f9f2e3 0 7%, #e7dcc7 9%, #b7ac96 10%, #f6eddc 13% 20%);
+    border-inline: 3px solid #dbcfb7; box-shadow: inset 3px 0 #fffbef, inset -3px 0 #a79c87;
+    clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
+  }
+  .shaft-panel {
+    position: absolute; inset: 18px 18% 25px; display: grid; place-items: center;
+    border: 3px double #b1a07a; background: var(--sea);
+    box-shadow: 0 0 0 3px #f9f1dc, 0 0 0 4px #b5a889;
+  }
+  .pendant { inline-size: 94%; block-size: 70%; color: #d9c79f; }
+  .base-ring { inline-size: 79%; block-size: 24px; flex-shrink: 0;
+    background: linear-gradient(#a99c85, #fff9e8 15% 40%, #b0a48f 41% 47%, #f7ecd8 48% 76%, #ab9f8b 77% 85%, #fff9eb 86%);
+    border: 1px solid #afa38b;
+  }
+  .plinth { inline-size: 94%; block-size: 106px; flex-shrink: 0; padding: 13px;
+    background: linear-gradient(90deg, #f9f2e1, #e2d5bc); border: 1px solid #b1a58e;
+    box-shadow: inset 3px 0 #fff8e9, 0 -3px #fdf6e8;
+  }
+  .plinth svg { inline-size: 100%; block-size: 100%; color: #968462; border: 1px solid #c1b398; padding: 9px; }
+  .foot { inline-size: 100%; block-size: 27px; flex-shrink: 0; border: 1px solid #b7a78c;
+    background: linear-gradient(#fff7e6 40%, #b9ac93 41% 50%, #e8dcc4 51%);
+  }
+  .urn {
+    position: absolute; inline-size: min(53%, 57px); block-size: auto;
+    aspect-ratio: 70 / 92;
+    inset-block-end: 100%; color: #b8a989;
+  }
+  .site-footer {
+    display: flex; align-items: center; gap: 35px; padding: 20px 34px;
+    border-block-start: 3px double var(--gold); background: var(--paper);
+    font-size: 14px;
+  }
+  .footer-rule { flex: 1; display: flex; gap: 14px; align-items: center; color: var(--gold); }
+  .footer-rule::before, .footer-rule::after { content: ""; block-size: 1px; background: var(--gold); flex: 1; }
+}
+/* Иерархия заголовков, монограмма и разделители. Размеры в cqw зависят от ширины центральной сцены. */
+@layer typography {
+  .site-label { font-size: 12px; letter-spacing: .32em; white-space: nowrap; }
+  .intro { position: relative; z-index: 2; text-align: center; padding: 28px 15% 0; }
+  .crest { inline-size: clamp(145px, 16cqw, 230px); aspect-ratio: 230 / 160; margin-inline: auto; position: relative; color: var(--gold); }
+  .crest svg { inline-size: 100%; block-size: 100%; }
+  .monogram {
+    fill: var(--ink); font-family: inherit; font-size: 42px; letter-spacing: 0;
+  }
+  .welcome { display: flex; align-items: center; justify-content: center; gap: 22px;
+    margin-block: 13px 24px; font-size: clamp(10px, 1.05cqw, 16px); letter-spacing: .4em;
+  }
+  .welcome::before, .welcome::after { content: ""; inline-size: 65px; block-size: 1px; background: var(--gold); }
+  h1 { font-weight: 400; font-size: clamp(65px, 8.5cqw, 138px); line-height: .95;
+    letter-spacing: -.055em; font-variant-caps: small-caps;
+  }
+  h1 span { display: block; }
+  h1 span + span { margin-block-start: .02em; }
+  .name-rule { inline-size: 190px; block-size: 34px; margin: 20px auto 0; color: var(--gold); }
+}
+/* Векторный пейзаж: вода, корабли и город располагаются разными слоями относительно рамки. */
+@layer engraving {
+  .harbor { position: absolute; inset: auto 9.4% 0; block-size: 350px; z-index: 1; color: var(--ink); pointer-events: none; }
+  .city { position: absolute; inset: auto 0 54px; inline-size: 100%; block-size: 225px; opacity: .72; }
+  .sea { position: absolute; inset: auto -6% 0; inline-size: 112%; max-inline-size: none; block-size: 125px; }
+  .ship { position: absolute; inset: auto auto 39px 3%; inline-size: 35%; max-inline-size: 365px; block-size: auto; overflow: visible; z-index: 2; }
+  .distant-boat { position: absolute; inset: auto 25% 30px auto; inline-size: 70px; block-size: 125px; opacity: 1; overflow: visible; z-index: 3; }
+  .clouds { position: absolute; inset: 0; block-size: 160px; inline-size: 100%; opacity: .07; }
+  .ship .rigging { fill: none; stroke: currentColor; stroke-width: .8; }
+  .ship .spar { fill: none; stroke: currentColor; stroke-width: 2.5; }
+  .ship .sail { fill: #f3eddf; stroke: currentColor; stroke-width: 1.1; }
+  .ship .seam { fill: none; stroke: currentColor; stroke-width: .45; opacity: .65; }
+  .ship .hull { fill: var(--ink); stroke: currentColor; stroke-width: 1; }
+  .ship .hull-line { fill: none; stroke: var(--paper); stroke-width: .8; }
+}
+/* Правила для узких экранов. Окончательную подгонку по высоте задаёт viewport.css. */
+@layer responsive {
+  @media (width >= 1700px) { .hero { min-block-size: 940px; } .harbor { block-size: 390px; } }
+  @media (700px <= width < 1100px) {
+    .hero { min-block-size: 760px; }
+    .intro { padding-block-start: 48px; }
+    .welcome { margin-block: 20px 30px; letter-spacing: .25em; }
+    .harbor { block-size: 340px; }
+    .ship { inline-size: 54%; inset-inline-start: 0; }
+    .column { inset-inline-start: 1.5%; inline-size: 11%; }
+    .column-right { inset-inline-start: auto; inset-inline-end: 1.5%; }
+    .capital { block-size: 65px; }
+    .plinth { block-size: 90px; padding: 9px; }
+    .pediment { inline-size: 34%; }
+  }
+  @media (width < 700px) {
+    .masthead { min-block-size: 70px; padding: 12px 18px; grid-template-columns: 42px 1fr 27px; gap: 10px; }
+    .small-seal { inline-size: 30px; font-size: 17px; outline-offset: 3px; }
+    .small-seal::before, .small-seal::after { display: none; }
+    .site-label { font-size: clamp(8px, 2.2vw, 12px); letter-spacing: .16em; }
+    .header-title { gap: 0; }
+    .header-title::before, .header-title::after { display: none; }
+    .compass { inline-size: 27px; }
+    .hero { min-block-size: max(710px, calc(100svh - 150px)); }
+    .wall { inline-size: 16px; border-inline-end: 1px solid var(--gold); }
+    .column { inset-block: 62px 0; inset-inline-start: 3px; inline-size: 31px; filter: none; }
+    .column-right { inset-inline-start: auto; inset-inline-end: 3px; }
+    .urn { inline-size: 21px; }
+    .abacus { block-size: 12px; }
+    .capital { block-size: 25px; inline-size: 36px; max-inline-size: none; }
+    .shaft { inline-size: 16px; border-inline-width: 1px; }
+    .shaft-panel { display: none; }
+    .base-ring { inline-size: 24px; block-size: 13px; }
+    .plinth { inline-size: 28px; block-size: 58px; padding: 3px; }
+    .plinth svg { padding: 3px; }
+    .foot { block-size: 14px; }
+    .pediment { inset-inline-start: 6px; inline-size: 96px; block-size: 75px; }
+    .pediment-right { inset-inline-start: auto; inset-inline-end: 6px; }
+    .intro { padding: 26px 39px 0; }
+    .crest { inline-size: 175px; }
+    .welcome { margin-block: 20px 25px; gap: 8px; font-size: 9px; letter-spacing: .22em; white-space: nowrap; }
+    .welcome::before, .welcome::after { inline-size: 16px; }
+    h1 { font-size: clamp(40px, 12cqw, 76px); line-height: 1.05; letter-spacing: -.055em; }
+    .name-rule { inline-size: 120px; block-size: 27px; margin-block-start: 18px; }
+    .harbor { inset-inline: 26px; block-size: 290px; }
+    .ship { inline-size: 91%; inset-inline-start: -8%; inset-block-end: 37px; }
+    .city { inline-size: 700px; max-inline-size: none; inset-inline-start: -160px; block-size: 170px; inset-block-end: 66px; opacity: .5; }
+    .sea { inline-size: 700px; max-inline-size: none; inset-inline-start: -80px; block-size: 110px; }
+    .distant-boat { inset-inline-end: 2%; inline-size: 37px; block-size: 85px; }
+    .clouds { display: none; }
+    .site-footer { padding: 17px 14px; gap: 9px; font-size: clamp(10px, 2.5vw, 13px); }
+    .footer-rule { gap: 0; }
+    .footer-rule::before, .footer-rule::after { display: none; }
+  }
+  @media print { body { padding: 0; background: white; } .site { box-shadow: none; } }
+}
+/* Небольшие декоративные движения; основное перелистывание управляется book.js. */
+@layer motion {
+  @media (prefers-reduced-motion: no-preference) {
+    .compass { transition: rotate .7s ease; }
+    .masthead:hover .compass { rotate: 45deg; }
+  }
+}
+/* Каркас книги и верёвок. Здесь описан внешний вид; последовательность перехода находится в book.js. */
+@layer book;
+@layer book {
+  h2 { margin: 0; font-size: clamp(70px, 8.5cqw, 138px); font-weight: 400;
+    line-height: .97; letter-spacing: -.04em; font-variant-caps: small-caps; }
+  h2 span { display: block; }
+  .residence-prefix { font-size: .48em; letter-spacing: .03em; margin-block-end: .25em; }
+  .hero--moscow { --sea: #214f49; }
+  .harbor--moscow { block-size: 370px; }
+  .moscow-skyline { position: absolute; inset: auto -2% 0; inline-size: 104%; block-size: auto; max-block-size: 340px; color: var(--ink); }
+  .moscow-skyline .cut-paper { fill: var(--paper); }
+/* После запуска JavaScript сцены занимают одну область и перекрывают друг друга. До запуска остаётся обычный поток документа. */
+  .book-motion .book { position: relative; block-size: var(--page-height); }
+  .book-motion .book-stage {
+    position: relative; block-size: var(--page-height);
+    overflow: clip; isolation: isolate; background: var(--paper);
+  }
+  .book-motion .scene {
+    position: absolute; inset: 0; min-block-size: 0; block-size: 100%;
+    grid-template-rows: auto 1fr auto; background: transparent;
+  }
+  .book-motion .scene--petersburg { z-index: 2; }
+  .book-motion .scene--moscow, .book-motion .scene--newyork, .book-motion .scene--mecca { z-index: 1; opacity: 0; }
+  .book-motion .scene .hero { min-block-size: 0; }
+/* Точка сгиба зависит от типа детали. Обратная сторона бумажного слоя не должна просвечивать при повороте. */
+  .book-motion [data-fold] { backface-visibility: hidden; transform-origin: 50% 100%; }
+  .book-motion [data-fold="left"] { transform-origin: 0 100%; }
+  .book-motion [data-fold="right"] { transform-origin: 100% 100%; }
+  .book-motion .wall-right, .book-motion .pediment-right { scale: 1; }
+  .book-motion .wall-right > svg, .book-motion .pediment-right > svg { scale: -1 1; }
+  .book-motion .book-stage::after {
+    content: ""; position: absolute; z-index: 3; pointer-events: none;
+    inset: auto 0 58px; block-size: 45%;
+    background: linear-gradient(0deg, #72512b28, transparent 8%), linear-gradient(90deg, transparent 49.9%, #72512b60 50%, transparent 50.1%);
+    opacity: var(--crease-opacity, 0);
+  }
+  .pull-cord, .cord-system { display: none; }
+  .book-motion .cord-system {
+    --rope-length: 130px; position: absolute; z-index: 5; display: block;
+    inset-block-start: 76px; inset-inline-end: 14%; inline-size: 100px;
+    block-size: 340px; pointer-events: none;
+  }
+  .book-motion .cord-system--newyork { inset-inline-end: auto; inset-inline-start: 14%; }
+  .book-motion .cord-system[hidden] { display: none; }
+/* Область отсечения начинается под держателем: втянутая верёвка скрывается внутри, сам держатель остаётся снаружи. */
+  .cord-feed {
+    position: absolute; inset: 0; pointer-events: none;
+    clip-path: inset(var(--feed-top, 8px) -100vw -200vh -100vw);
+  }
+  .cord-system.is-stowed .cord-feed { visibility: hidden; }
+  .book-motion .pull-cord {
+    position: absolute; inset-inline-start: 50%; inset-block-start: calc(var(--rope-length) + 10px);
+    inline-size: 100px; transform: translateX(-50%); pointer-events: auto;
+    display: flex; align-items: center; flex-direction: column;
+    padding: 0 4px 12px; border: 0; background: none; color: var(--ink);
+    font: inherit; cursor: grab; user-select: none; touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pull-cord:focus-visible { outline: 2px dashed var(--gold); outline-offset: 6px; border-radius: 0 0 48px 48px; }
+  .pull-cord.is-dragging { cursor: grabbing; }
+  .pull-cord[aria-disabled="true"] { cursor: wait; }
+  .cord-anchor {
+    z-index: 2;
+    position: absolute; inset-inline-start: 50%; translate: -50% 0;
+    inline-size: 22px; block-size: 10px; flex: none;
+    background: linear-gradient(90deg, #8d723d, #e2cfa0 45%, #8d723d);
+    border: 1px solid #8d723d; border-radius: 0 0 6px 6px;
+    box-shadow: 0 2px 3px #533d2020;
+  }
+/* SVG-нити и HTML-кнопка кисточки раздельные: нить не перехватывает события указателя. */
+  .rope-line { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; overflow: visible; pointer-events: none; }
+  .rope-line path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .rope-shadow { stroke: #533d2022; stroke-width: 6; transform: translate(2px, 1px); }
+  .rope-body { stroke: #96763c; stroke-width: 5; }
+  .rope-braid { stroke: #e5cfa0; stroke-width: 2.2; stroke-dasharray: 3 4; }
+  .cord-tassel { inline-size: 37px; block-size: 66px; flex: none; transform-origin: 50% 0; filter: drop-shadow(2px 2px 1px #533d2026); }
+  .cord-label { display: grid; gap: 4px; margin-block-start: 9px; font-size: 11px; line-height: 1.3; letter-spacing: .1em; }
+  .cord-action { color: #806637; font-size: 10px; }
+  .cord-system.is-moving .cord-label, .pull-cord.is-dragging .cord-label { opacity: 0; }
+  .cord-system.is-transitioning .cord-label { opacity: 1; }
+/* Инструкции и сообщения о переходах доступны скринридеру, но не занимают место в композиции. */
+  .visually-hidden { position: absolute; inline-size: 1px; block-size: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+  @media (width < 700px) {
+    h2 { font-size: clamp(49px, 15cqw, 88px); }
+    .residence-prefix { font-size: .5em; margin-block-end: .3em; }
+    .harbor--moscow { block-size: 300px; }
+    .moscow-skyline { inline-size: 560px; max-inline-size: none; max-block-size: none; inset-inline-start: 50%; translate: -50% 0; }
+    .book-motion .book-stage::after { inset-block-end: 50px; }
+    .book-motion .cord-system { --rope-length: 58px; inset-block-start: 70px; inset-inline-end: 25px; inline-size: 65px; }
+    .book-motion .cord-system--newyork { inset-inline-end: auto; inset-inline-start: 25px; }
+    .book-motion .pull-cord { inline-size: 65px; }
+    .rope-body { stroke-width: 4; }
+    .rope-shadow { stroke-width: 5; }
+    .cord-anchor { inline-size: 16px; block-size: 8px; }
+    .cord-tassel { inline-size: 28px; block-size: 50px; }
+    .cord-label { gap: 2px; font-size: 9px; margin-block-start: 6px; letter-spacing: .02em; }
+    .cord-action { font-size: 9px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .book-motion [data-fold] { transform: none !important; } }
+/* При печати сцены выводятся последовательно, без интерактивных верёвок и перспективных поворотов. */
+  @media print {
+    .book-motion .book { block-size: auto; }
+    .book-motion .book-stage { position: static; block-size: auto; overflow: visible; }
+    .book-motion .scene { position: relative; opacity: 1 !important; block-size: auto; min-block-size: 100vh; break-after: page; }
+    .book-motion .scene [data-fold] { transform: none !important; opacity: 1 !important; }
+    .book-motion .scene .hero { min-block-size: 810px; }
+    .pull-cord, .cord-system { display: none !important; }
+  }
+}
+/* Движение гавани отделено от сгиба страницы: внешняя оболочка складывается, внутренние SVG-группы продолжают маршрут, когда сцена активна. */
+@layer harbor-motion;
+@layer harbor-motion {
+  .water-drift, .water-ripple, .ship-voyage, .ship-bobbing, .boat-voyage, .boat-bobbing {
+    transform-box: view-box;
+    transform-origin: 50% 88%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .water-drift { animation: water-current 65s linear infinite; }
+    .water-ripple { animation: water-ripple 7s ease-in-out infinite alternate; }
+    .ship-voyage { animation: vessel-passage var(--voyage-duration, 100s) linear infinite; animation-delay: var(--voyage-delay, 0s); }
+    .boat-voyage { animation: vessel-passage var(--voyage-duration, 140s) linear infinite; animation-delay: var(--voyage-delay, 0s); }
+    .ship-bobbing { animation: ship-rock 5.4s ease-in-out infinite; }
+    .boat-bobbing { animation: boat-rock 6.1s ease-in-out infinite; }
+    .scene--petersburg .water-drift, .scene--petersburg .water-ripple,
+    .scene--petersburg .ship-voyage, .scene--petersburg .ship-bobbing,
+    .scene--petersburg .boat-voyage, .scene--petersburg .boat-bobbing { animation-play-state: paused; }
+    .scene--petersburg[data-harbor-running="true"] .water-drift,
+    .scene--petersburg[data-harbor-running="true"] .water-ripple,
+    .scene--petersburg[data-harbor-running="true"] .ship-voyage,
+    .scene--petersburg[data-harbor-running="true"] .ship-bobbing,
+    .scene--petersburg[data-harbor-running="true"] .boat-voyage,
+    .scene--petersburg[data-harbor-running="true"] .boat-bobbing { animation-play-state: running; }
+    @keyframes water-current { to { transform: translateX(-1200px); } }
+    @keyframes water-ripple { from { transform: translateY(-1.2px); } to { transform: translateY(1.2px); } }
+/* Границы маршрута вычисляет harbor.js с учётом текущего масштаба судна. */
+    @keyframes vessel-passage {
+      from { transform: translateX(var(--voyage-start, 0px)); }
+      to { transform: translateX(var(--voyage-end, 0px)); }
+    }
+    @keyframes ship-rock {
+      0%, 100% { transform: translateY(0) rotate(-.35deg); }
+      50% { transform: translateY(2.4px) rotate(.35deg); }
+    }
+    @keyframes boat-rock {
+      0%, 100% { transform: translateY(.7px) rotate(.55deg); }
+      50% { transform: translateY(-.7px) rotate(-.55deg); }
+    }
+  }
+  @media print {
+    .water-drift, .water-ripple, .ship-voyage, .ship-bobbing, .boat-voyage, .boat-bobbing {
+      animation: none !important; transform: none !important;
+    }
+  }
+}
+/* Тема Нью-Йорка: локальный Oswald, холодная палитра и фасады по краям сцены. */
+@font-face { font-family: "Oswald"; src: url("src/fonts/Oswald-VF.ttf") format("truetype"); font-style: normal; font-weight: 200 700; font-display: swap; }
+@layer book {
+  .scene--newyork { --ink: #d9e4ed; --paper: #17222e; --paper-light: #e8f0f5; --gold: #8096a7; --stone: #4c6375; --sea: #314958; --frame-dark: #0a111a; font-family: "Oswald", "Arial Narrow", Arial, sans-serif; color: var(--ink); background: var(--paper); }
+  .scene--newyork .masthead, .scene--newyork .site-footer { background: var(--frame-dark); border-color: var(--stone); color: var(--ink); }
+  .scene--newyork .site-label { letter-spacing: .3em; font-weight: 400; }
+  .scene--newyork .small-seal { border-radius: 0; border-color: var(--stone); outline-color: var(--gold); font-weight: 300; }
+  .scene--newyork .site-footer { letter-spacing: .08em; font-weight: 300; }
+  .newyork-header-mark { inline-size: 40px; color: var(--gold); }
+  .hero--newyork { background: radial-gradient(ellipse at 50% 40%, #233748, #17222e 70%); }
+/* Фасады находятся перед пейзажем и дождём, чтобы эффекты не рисовались поверх наружной рамки. */
+  .newyork-frame { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .newyork-frame-art { inline-size: 100%; block-size: 100%; }
+  .intro--newyork { padding-block-start: 86px; }
+  .newyork-medallion { inline-size: 62px; margin-inline: auto; color: var(--gold); }
+  .newyork-medallion svg { inline-size: 100%; block-size: auto; }
+  .newyork-medallion text { font: 300 32px "Oswald", sans-serif; fill: currentColor; }
+  .intro--newyork .welcome { margin-block: 18px 14px; font-size: 11px; letter-spacing: .35em; }
+  .intro--newyork .welcome::before, .intro--newyork .welcome::after { inline-size: 42px; }
+  .intro--newyork h2 { font-family: "Oswald", "Arial Narrow", Arial, sans-serif; font-size: clamp(82px, 9.5cqw, 140px); font-weight: 500; font-variant-caps: normal; text-transform: uppercase; letter-spacing: .025em; line-height: 1.15; }
+  .newyork-copy { margin-block-start: 20px; font-size: clamp(19px, 1.8cqw, 26px); font-weight: 300; letter-spacing: .025em; line-height: 1.65; color: #b4c6d4; }
+  .newyork-rule { inline-size: 180px; block-size: 24px; margin: 23px auto 0; color: var(--gold); }
+  .newyork-rain { position: absolute; inset: 0 12.5%; z-index: 2; inline-size: 75%; block-size: 100%; overflow: hidden; pointer-events: none; color: #aec8dc; }
+  .newyork-rain[hidden] { display: none; }
+  .newyork-rain path { fill: none; stroke: currentColor; stroke-width: .9; stroke-linecap: round; }
+  .liberty-scene { position: absolute; inset: auto 9.5% 0; block-size: clamp(320px, calc(100% - 420px), 450px); z-index: 1; pointer-events: none; }
+  .newyork-model { position: absolute; inset: auto 0 0; inline-size: 100%; block-size: 100%; overflow: hidden; }
+/* Вода движется отдельно от самого острова и монумента. */
+  .liberty-ripples { animation: liberty-water-rush 9.75s linear infinite; }
+  .liberty-ripples--faster { animation-duration: 13s; animation-direction: reverse; opacity: .16; }
+  @keyframes liberty-water-rush { to { translate: -180px 0; } }
+  .torch-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: torch-flicker 1s steps(1, end) infinite; }
+/* Пять дискретных состояний факела создают намеренно покадровое, неровное мерцание. */
+  @keyframes torch-flicker {
+    0%, 100% { transform: skewX(-8deg) scale(1.9, 2.05) translateX(-.5px); }
+    20% { transform: skewX(11deg) scale(2.2, 1.78) translateX(1px); }
+    40% { transform: skewX(-12deg) scale(1.78, 2.22) translateX(-1px); }
+    60% { transform: skewX(7deg) scale(2.12, 1.88) translateX(.5px); }
+    80% { transform: skewX(-5deg) scale(1.98, 2.12) translateX(1px); }
+  }
+  .cord-system--newyork .cord-anchor { background: linear-gradient(90deg, #496b69, #c6d8bd 45%, #496b69); }
+  .cord-system--newyork .rope-body { stroke: #567b73; }
+  .cord-system--newyork .rope-braid { stroke: #ced9b4; }
+  .cord-system--newyork .cord-tassel { filter: hue-rotate(72deg) saturate(.6) drop-shadow(2px 2px 1px #163d3926); }
+  .book[data-scene="newyork"] .cord-system--newyork .cord-label { font-family: "Oswald", Arial, sans-serif; letter-spacing: .05em; color: #d9e4ed; }
+  .book[data-scene="newyork"] .cord-system--newyork .cord-action { color: #9db2c1; }
+  .book[data-scene="newyork"] .cord-system--newyork .cord-anchor { background: linear-gradient(90deg, #334857, #b6c7d3 45%, #334857); border-color: #627c8e; }
+  .book[data-scene="newyork"] .cord-system--newyork .rope-body { stroke: #6f8c9e; }
+  .book[data-scene="newyork"] .cord-system--newyork .rope-braid { stroke: #cedae3; }
+  .book[data-scene="newyork"] .cord-system--newyork .cord-tassel { filter: grayscale(1) drop-shadow(2px 2px 1px #0004); }
+  @media (width < 1100px) { .liberty-scene { block-size: 400px; } .newyork-model { inline-size: 1000px; max-inline-size: none; inset-inline-start: 50%; translate: -50% 0; } }
+  @media (prefers-reduced-motion: reduce) { .liberty-ripples, .torch-flame { animation: none; } .newyork-rain { display: none; } }
+  @media print { .newyork-rain { display: none; } }
+  @media (width < 700px) {
+    .intro--newyork { padding: 64px 43px 0; }
+    .newyork-medallion { inline-size: 48px; }
+    .intro--newyork .welcome { margin-block: 14px 16px; font-size: 9px; letter-spacing: .2em; }
+    .intro--newyork .welcome::before, .intro--newyork .welcome::after { inline-size: 14px; }
+    .intro--newyork h2 { font-size: clamp(45px, 13.5cqw, 76px); }
+    .newyork-copy { font-size: 16px; margin-block-start: 16px; line-height: 1.65; }
+    .newyork-rule { inline-size: 140px; margin-block-start: 16px; }
+    .newyork-header-mark { inline-size: 28px; }
+    .newyork-rain { inset-inline: 34px; inline-size: calc(100% - 68px); }
+    .liberty-scene { inset-inline: 30px; block-size: 370px; }
+    .newyork-model { inline-size: 1000px; max-inline-size: none; inset-inline-start: 50%; translate: -50% 0; }
+  }
+}
+
+/* Oswald font license:
+Copyright 2016 The Oswald Project Authors (https://github.com/googlefonts/OswaldFont)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+*/
+/* Тема Мекки: кириллический El Messiri, зелёная палитра и геометрическая арка вместо колонн. Шрифт загружается локально. */
+@font-face {
+  font-family: "El Messiri";
+  src: url("src/fonts/ElMessiri-VF.ttf") format("truetype");
+  font-style: normal; font-weight: 400 700; font-display: swap;
+}
+@layer book {
+  .scene--mecca {
+    --ink: #254f40; --paper: #f4ecd9; --paper-light: #fff9e9;
+    --gold: #b79958; --sea: #103f35; --stone: #d8c9a4;
+    font-family: "El Messiri", "Palatino Linotype", Palatino, serif;
+    color: var(--ink); background: var(--paper);
+  }
+  .scene--mecca .masthead, .scene--mecca .site-footer {
+    background: var(--sea); color: var(--paper); border-color: var(--gold);
+  }
+  .scene--mecca .site-label { letter-spacing: .22em; }
+  .scene--mecca .small-seal { border-radius: 0; border-color: var(--gold); outline-color: var(--gold); }
+  .mecca-header-star { inline-size: 42px; color: var(--gold); }
+  .hero--mecca { background: var(--sea); }
+/* Рамка растягивается по области сцены. Контур крепления верёвок хранится внутри mecca-frame.svg. */
+  .mecca-frame { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .mecca-frame-art { inline-size: 100%; block-size: 100%; }
+  .intro--mecca { padding-block-start: 55px; }
+  .mecca-medallion { inline-size: 88px; margin-inline: auto; color: var(--gold); }
+  .mecca-medallion svg { inline-size: 100%; block-size: auto; }
+  .mecca-medallion text { font-family: "El Messiri", serif; font-size: 26px; fill: currentColor; }
+  .intro--mecca .welcome { margin-block: 18px 5px; font-size: 11px; letter-spacing: .35em; }
+  .intro--mecca .welcome::before, .intro--mecca .welcome::after { inline-size: 45px; }
+  .intro--mecca h2 {
+    font-family: "El Messiri", "Palatino Linotype", serif;
+    font-size: clamp(88px, 10cqw, 150px); font-weight: 500;
+    font-variant-caps: normal; letter-spacing: -.045em; line-height: 1.25;
+  }
+  .mecca-copy { margin: 8px auto 0; max-inline-size: 30ch; font-size: clamp(20px, 2.1cqw, 30px); line-height: 1.6; }
+  .mecca-rule { inline-size: 180px; block-size: 30px; margin: 19px auto 0; color: var(--gold); }
+  .book[data-scene="mecca"] .cord-system--mecca .pull-cord { font-family: "El Messiri", "Palatino Linotype", serif; }
+  .mecca-scene { position: absolute; inset: auto 9.5% 0; block-size: clamp(430px, calc(100% - 555px), 570px); z-index: 1; pointer-events: none; }
+  .mecca-model { inline-size: 100%; block-size: 100%; display: block; }
+/* Эффекты воздуха ограничены нижней частью сцены; это песок и жар, а не осадки на всём экране. */
+  .mecca-air {
+    position: absolute; inset: auto 12.5% 0; z-index: 2;
+    inline-size: 75%; block-size: 240px; pointer-events: none;
+    overflow: hidden; color: var(--ink);
+  }
+  .mecca-air[hidden] { display: none; }
+  .mecca-air path { fill: none; stroke: currentColor; stroke-width: 1.15; stroke-linecap: round; }
+  .scene--mecca[data-mecca-air-running="true"] :is(.mecca-ground, .mecca-distance) { filter: url(#mecca-ground-heat); }
+  .book-motion .cord-system--mecca { inset-inline-end: calc(14% + 110px); }
+  .cord-system--mecca .cord-anchor { background: linear-gradient(90deg, #15523d, #8fbe91 45%, #15523d); border-color: #275f45; }
+  .cord-system--mecca .rope-body { stroke: #27754e; }
+  .cord-system--mecca .rope-braid { stroke: #a8d29a; }
+  .cord-system--mecca .cord-action { color: #36734f; }
+  .cord-system--mecca .cord-destination { color: #1a6140; }
+  @media (width < 700px) {
+    .intro--mecca { padding: 34px 39px 0; }
+    .mecca-medallion { inline-size: 72px; }
+    .intro--mecca .welcome { margin-block: 16px 4px; font-size: 9px; }
+    .intro--mecca h2 { font-size: clamp(66px, 20cqw, 100px); }
+    .mecca-copy { font-size: 19px; max-inline-size: 23ch; }
+    .mecca-rule { inline-size: 140px; margin-block-start: 12px; }
+    .mecca-header-star { inline-size: 28px; }
+    .mecca-scene { inset-inline: 28px; block-size: 390px; }
+    .mecca-model { inline-size: min(600px, 150vw); max-inline-size: none; position: absolute; inset-inline-start: 50%; translate: -50% 0; }
+    .mecca-air { inset-inline: 40px; inline-size: calc(100% - 80px); block-size: 180px; }
+    .book-motion .cord-system--mecca { inset-inline-end: 96px; --rope-length: 42px; }
+    .book[data-scene="mecca"] .cord-system--mecca .cord-label { font-size: 8px; letter-spacing: 0; margin-block-start: 4px; }
+    .book[data-scene="mecca"] .cord-system--mecca .cord-action { font-size: 8px; }
+    .book[data-scene="mecca"] .cord-system--mecca .cord-destination { white-space: nowrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mecca-air { display: none; }
+    .scene--mecca :is(.mecca-ground, .mecca-distance) { filter: none; }
+  }
+  @media print {
+    .mecca-air { display: none; }
+    .scene--mecca :is(.mecca-ground, .mecca-distance) { filter: none; }
+  }
+}
+
+/* El Messiri font license:
+Copyright 2015 The El Messiri Project Authors (https://github.com/Gue3bara/El-Messiri)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+*/
+/* Тема Москвы: локальный шрифт Ponomar и кирпичная палитра Кремля. */
+@font-face {
+  font-family: "Ponomar";
+  src: url("src/fonts/Ponomar-Regular.ttf") format("truetype");
+  font-style: normal; font-weight: 400; font-display: swap;
+}
+@layer book {
+  .scene--moscow {
+    --ink: #6a3029; --paper: #f4eddf; --paper-light: #fff9ed;
+    --brick: #923f32; --stone: #e7d9be; --gold: #ad8950;
+    color: var(--ink); background: var(--paper);
+  }
+  .scene--moscow .masthead, .scene--moscow .site-footer {
+    background: var(--brick); color: var(--paper-light); border-color: var(--stone);
+  }
+  .scene--moscow .site-label { font-family: "Ponomar", "Palatino Linotype", serif; letter-spacing: .22em; }
+  .scene--moscow .small-seal { border-radius: 0; border-color: var(--stone); outline-color: var(--gold); font-family: "Ponomar", serif; }
+  .moscow-header-rosette { inline-size: 42px; color: var(--stone); }
+  .hero--moscow { background: var(--paper); }
+  .moscow-frame { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .moscow-frame-art { inline-size: 100%; block-size: 100%; }
+/* Отступ монограммы связан с вершиной арки; точное положение рассчитывается в book.js после измерения сцены. */
+  .intro--moscow { padding-block-start: var(--moscow-crest-top, 130px); }
+  .moscow-medallion { inline-size: 68px; margin-inline: auto; color: var(--gold); }
+  .moscow-medallion svg { inline-size: 100%; block-size: auto; }
+  .moscow-medallion text { font-family: "Ponomar", serif; font-size: 32px; fill: var(--ink); }
+  .intro--moscow .welcome { margin-block: 13px 18px; font-family: "Ponomar", "Palatino Linotype", serif; font-size: 13px; letter-spacing: .27em; }
+  .intro--moscow .welcome::before, .intro--moscow .welcome::after { inline-size: 42px; }
+  .intro--moscow h2 {
+    font-family: "Ponomar", "Palatino Linotype", serif;
+    font-size: clamp(82px, 10cqw, 145px); font-variant-caps: normal;
+    font-weight: 400; line-height: 1.08; letter-spacing: -.025em;
+  }
+  .intro--moscow .residence-prefix { font-family: "Palatino Linotype", Palatino, serif; font-size: .3em; letter-spacing: .08em; margin-block-end: .28em; }
+  .moscow-rule { inline-size: 180px; block-size: 30px; margin: 22px auto 0; color: var(--gold); }
+  .scene--moscow .harbor--moscow { color: var(--ink); }
+  .scene--moscow .moscow-skyline { color: var(--ink); }
+  .book[data-scene="moscow"] .cord-system:not(.is-stowed) .cord-label { color: #6a3029; }
+  @media (width < 700px) {
+    .intro--moscow { padding: var(--moscow-crest-top, 100px) 39px 0; }
+    .moscow-medallion { inline-size: 54px; }
+    .intro--moscow .welcome { margin-block: 10px 16px; font-size: 11px; }
+    .intro--moscow h2 { font-size: clamp(64px, 19cqw, 95px); }
+    .intro--moscow .residence-prefix { font-size: .35em; }
+    .moscow-rule { inline-size: 140px; margin-block-start: 15px; }
+    .moscow-header-rosette { inline-size: 28px; }
+    .book[data-scene="moscow"] .cord-system:not(.is-stowed) .cord-label { font-size: 8px; letter-spacing: 0; line-height: 1.25; margin-block-start: 40px; translate: -12px 0; }
+    .book[data-scene="moscow"] .cord-system:not(.is-stowed) .cord-action { font-size: 8px; }
+    .book[data-scene="moscow"] .cord-system:not(.is-stowed) .cord-destination { white-space: nowrap; }
+  }
+}
+
+/* Ponomar font license:
+Copyright 2025 The Ponomar Project Authors (https://github.com/slavonic/Ponomar.git)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://openfontlicense.org
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+*/
+/* Цвет и границы дождя Петербурга. Общая анимация слоёв описана в weather.css. */
+@layer book {
+  .scene--petersburg { position: relative; }
+  .petersburg-rain {
+    position: absolute; inset: 0 12.5%; z-index: 2;
+    inline-size: 75%; block-size: 100%;
+    pointer-events: none; overflow: hidden; color: var(--ink);
+  }
+  .petersburg-rain[hidden] { display: none; }
+  .petersburg-rain path { fill: none; stroke: currentColor; stroke-width: .9; stroke-linecap: round; }
+  @media (width < 700px) {
+    .petersburg-rain { inset-inline: 34px; inline-size: calc(100% - 68px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .petersburg-rain { display: none; } }
+  @media print { .petersburg-rain { display: none; } }
+}
+/* Цвет и размер штрихов снежинок Москвы. Частицы создаёт общий генератор weather.js. */
+@layer book {
+  .scene--moscow { position: relative; }
+  .moscow-snow {
+    position: absolute; inset: 0 12.5%; z-index: 2;
+    inline-size: 75%; block-size: 100%;
+    pointer-events: none; overflow: hidden; color: var(--ink);
+  }
+  .moscow-snow[hidden] { display: none; }
+  .moscow-snow path { stroke: currentColor; fill: var(--paper-light); stroke-width: 1; stroke-linecap: round; }
+  @media (width < 700px) {
+    .moscow-snow { inset-inline: 34px; inline-size: calc(100% - 68px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .moscow-snow { display: none; } }
+  @media print { .moscow-snow { display: none; } }
+}
+/* Движутся целые листы с повторяющимся узором осадков, а не отдельные частицы. Это сокращает работу JavaScript и перерисовки SVG. */
+@layer book {
+/* Отсечение и изоляция удерживают дождь и снег внутри центральной области. */
+  .weather-field { contain: strict; }
+  .weather-sway { position: absolute; inset: 0; opacity: var(--weather-opacity); animation: weather-gust var(--gust-duration) ease-in-out infinite alternate; }
+  .weather-sheet { position: absolute; top: 0; animation: weather-fall var(--fall-duration) linear infinite; animation-delay: var(--fall-delay); }
+  .weather-sheet svg { inline-size: 100%; block-size: 100%; max-inline-size: none; }
+  .weather-snow .weather-sway { animation: weather-gust var(--gust-duration) ease-in-out infinite alternate, weather-sway var(--sway-duration) ease-in-out infinite alternate; animation-delay: 0s, var(--sway-delay); }
+  .weather-field[data-weather-running="true"] .weather-sheet { will-change: transform; }
+  .weather-field[data-weather-running="false"] :is(.weather-sheet, .weather-sway) { animation-play-state: paused; }
+/* Смещение равно периоду узора; последний кадр совпадает с первым следующего цикла. */
+  @keyframes weather-fall { from { transform: translate3d(0, var(--weather-top), 0); } to { transform: translate3d(var(--weather-left), 0, 0); } }
+  @keyframes weather-sway { from { transform: translateX(-12px); } to { transform: translateX(12px); } }
+  @keyframes weather-gust { from { opacity: calc(var(--weather-opacity) * .55); } to { opacity: var(--weather-opacity); } }
+}
+/* Последний слой компоновки: все сцены должны помещаться в окно без прокрутки. Менять размеры безопаснее здесь, а не в базовых стилях. */
+@layer viewport;
+@layer viewport {
+/* dvh учитывает текущую высоту окна, в том числе изменение панелей мобильного браузера. */
+  html.book-motion, .book-motion body { block-size: 100dvh; min-block-size: 0; overflow: hidden; }
+  .book-motion .book, .book-motion .book-stage { block-size: 100dvh; }
+  .book-motion .scene { grid-template-rows: auto minmax(0, 1fr) auto; }
+  .book-motion .masthead { min-block-size: clamp(36px, 7dvh, 76px); padding-block: 6px; }
+  .book-motion .site-footer { padding-block: clamp(5px, 1.4dvh, 16px); font-size: clamp(9px, 1.4dvh, 13px); }
+/* Контейнер задаёт единицы cqw и cqh: подписи и иллюстрации масштабируются по доступной области между шапкой и подвалом. */
+  .book-motion .hero { container-type: size; min-block-size: 0; }
+  .book-motion .intro { padding-block-start: 3cqh; }
+  .book-motion .crest { inline-size: clamp(65px, 18cqh, 190px); }
+  .book-motion .welcome { font-size: clamp(8px, 1.7cqh, 13px); margin-block: 1cqh 2cqh; }
+  .book-motion h1 { font-size: min(8.5cqw, 12.5cqh); }
+  .book-motion .name-rule { block-size: 3.5cqh; margin-block-start: 2cqh; }
+  .book-motion .harbor { block-size: 42cqh; }
+  .book-motion .city { block-size: 27cqh; inset-block-end: 6cqh; }
+  .book-motion .sea { block-size: 13cqh; }
+  .book-motion .ship { inline-size: min(36cqw, 39cqh); max-inline-size: none; }
+  .book-motion .scene--moscow .intro { padding-block-start: var(--moscow-crest-top); }
+  .book-motion .scene--moscow .moscow-medallion { inline-size: min(68px, 9cqh); }
+  .book-motion .scene--moscow h2 { font-size: min(10cqw, 17cqh); }
+  .book-motion .harbor--moscow { block-size: 36cqh; }
+  .book-motion .moscow-skyline { max-block-size: 34cqh; }
+  .book-motion .scene--newyork .intro { padding-block-start: 9cqh; }
+  .book-motion .scene--newyork .newyork-medallion { inline-size: min(62px, 8cqh); }
+  .book-motion .scene--newyork h2 { font-size: min(9.5cqw, 15cqh); }
+  .book-motion .scene--newyork .welcome { margin-block: 1.5cqh; }
+  .book-motion .scene--newyork .newyork-copy { font-size: clamp(12px, 3cqh, 26px); margin-block-start: 2cqh; }
+  .book-motion .newyork-rule, .book-motion .mecca-rule { block-size: 2.5cqh; margin-block-start: 2cqh; }
+  .book-motion .liberty-scene { block-size: 42cqh; }
+  .book-motion .scene--mecca .intro { padding-block-start: 5cqh; }
+  .book-motion .scene--mecca .mecca-medallion { inline-size: min(88px, 10cqh); }
+  .book-motion .scene--mecca h2 { font-size: min(10cqw, 16cqh); }
+  .book-motion .scene--mecca .mecca-copy { font-size: clamp(12px, 3cqh, 26px); margin-block-start: 1cqh; }
+  .book-motion .mecca-scene { block-size: 42cqh; }
+  .book-motion .cord-system { inset-block-start: var(--cord-top, 76px); --rope-length: clamp(40px, 15dvh, 130px); }
+/* Невидимые сцены не продолжают CSS-анимации; во время сгиба декоративные эффекты тоже приостанавливаются. */
+  .book-motion .scene[data-rendering="false"] *, .book-motion .book[data-turning="true"] .scene *,
+  .book-motion body.page-hidden .scene * { animation-play-state: paused !important; }
+  .book-motion .cord-system--petersburg { inset-inline-end: auto; inset-inline-start: calc(14% + 110px); }
+  .cord-system--petersburg .cord-anchor { background: linear-gradient(90deg, #0a535b, #a7d7d3 45%, #0a535b); border-color: #346d72; }
+  .cord-system--petersburg .rope-body { stroke: #347b83; }
+  .cord-system--petersburg .rope-braid { stroke: #bbe1d9; }
+  .cord-system--petersburg .cord-tassel { filter: hue-rotate(125deg) saturate(.5); }
+/* Верёвка текущей сцены остаётся на месте, но выглядит приглушённой и не принимает нажатия. */
+  .cord-system.is-current .cord-feed { opacity: .3; }
+  .cord-system.is-current .pull-cord { pointer-events: none; cursor: default; }
+  .book[data-scene="newyork"] .cord-label, .book[data-scene="newyork"] .cord-action, .book[data-scene="newyork"] .cord-destination { color: #cadce6; }
+  @media (width < 700px) {
+    .book-motion .scene--petersburg .crest { inline-size: min(32cqw, 18cqh); }
+    .book-motion .scene--petersburg .welcome { font-size: 9px; letter-spacing: .14em; }
+    .book-motion h1 { font-size: min(12cqw, 12.5cqh); }
+    .book-motion .ship { inline-size: min(80cqw, 40cqh); }
+    .book-motion .scene--newyork h2 { font-size: min(13.5cqw, 15cqh); }
+    .book-motion .scene--newyork .newyork-copy, .book-motion .scene--mecca .mecca-copy { font-size: clamp(12px, 2.4cqh, 19px); }
+    .book-motion .cord-system { --rope-length: 58px; }
+    .book-motion .cord-system--mecca { --rope-length: 42px; }
+    .book-motion .cord-system--petersburg { inset-inline-start: 96px; --rope-length: 42px; }
+    .book .cord-label { font-size: 8px; letter-spacing: 0; }
+    .book .cord-action { font-size: 8px; }
+    .book-motion .scene--moscow .intro-copy { padding-block-start: 16cqh; }
+    .book-motion .scene--moscow h2 { font-size: min(19cqw, 14cqh); }
+    .book[data-scene="moscow"] .cord-system .cord-label { margin-block-start: 6px; translate: none; }
+    .book[data-scene="moscow"] .cord-system .cord-destination { white-space: normal; }
+  }
+}
+
+@layer viewport {
+  .compass-trigger { display: grid; place-items: center; inline-size: 46px; block-size: 46px; border: 0; padding: 0; color: inherit; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .compass-trigger:focus-visible { outline: 1px dashed currentColor; outline-offset: 4px; }
+/* Секретный держатель привязывается к месту розы ветров из JavaScript и не участвует в обычной четвёрке направлений. */
+  .book-motion .cord-system--secret { --rope-length: 20px; inset-inline-start: calc(50% - 50px); inset-inline-end: auto; }
+  .cord-system--secret .cord-tassel { block-size: 38px; inline-size: 24px; }
+  .cord-system--secret .cord-label { display: none; }
+  .scene--safari { --ink: #762f29; --gold: #b18c4b; --paper: #f4eddd; }
+  .hero--safari { display: grid; place-items: center; background: linear-gradient(90deg, #762f29 0 9%, transparent 9% 91%, #762f29 91%); }
+  .safari-message { inline-size: 78%; text-align: center; }
+  .safari-message h2 { font-family: "Ponomar", "Palatino Linotype", serif; font-size: min(16cqw, 25cqh); line-height: 1.2; }
+  .safari-message h2 span:last-child { font-family: "Palatino Linotype", Georgia, serif; }
+  @media (width < 700px) { .book-motion .cord-system--secret { --rope-length: 18px; inset-inline-start: calc(50% - 32.5px); } }
+}
+
+@layer viewport {
+  .book-motion .cord-system--secret { z-index: 8; inline-size: 46px; --rope-length: 18px; }
+  .book-motion .cord-system--secret .pull-cord { inline-size: 44px; }
+  .compass-trigger .compass { inline-size: 100%; block-size: 100%; }
+  @media (width < 700px) { .compass-trigger { inline-size: 27px; block-size: 27px; } }
+}
+
+@layer viewport {
+/* Поворот держателя выполняется вместе с рамкой; обратная сторона не рисуется. */
+  .book-motion .cord-system { backface-visibility: hidden; }
+  @media (width < 700px) {
+    .book-motion .scene--mecca .intro-copy { padding-block-start: 14cqh; }
+    .book-motion .scene--mecca h2 { font-size: min(20cqw, 14cqh); }
+  }
+}
