@@ -104,6 +104,8 @@ $newyorkStyle += "`n/* Oswald font license:`n" + [IO.File]::ReadAllText("$siteDi
 # Ключи соответствуют местам подстановки в шаблоне. CSS и BOOK_SCRIPT записываются отдельно, остальные фрагменты встраиваются в HTML.
 $parts = @{
   CSS = [IO.File]::ReadAllText("$siteDir\src\styles.css") + [IO.File]::ReadAllText("$siteDir\src\book.css") + [IO.File]::ReadAllText("$siteDir\src\harbor.css") + $newyorkStyle + $meccaStyle + $moscowStyle + [IO.File]::ReadAllText("$siteDir\src\rain.css") + [IO.File]::ReadAllText("$siteDir\src\snow.css") + [IO.File]::ReadAllText("$siteDir\src\weather.css") + [IO.File]::ReadAllText("$siteDir\src\viewport.css")
+  ISRAEL = [IO.File]::ReadAllText("$siteDir\src\israel.svg")
+  ISRAEL_FRAME = [IO.File]::ReadAllText("$siteDir\src\israel-frame.svg")
   ORNAMENTS = [IO.File]::ReadAllText("$siteDir\src\ornaments.svg")
   SHIP = [IO.File]::ReadAllText("$siteDir\src\ship.svg")
   CITY = $city.ToString()

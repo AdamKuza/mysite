@@ -233,6 +233,7 @@
   });
   book.addEventListener('book:turnend', () => {
     transitioning = false;
+    measure();
     system.classList.remove('is-transitioning');
     lift = 0;
     draw();

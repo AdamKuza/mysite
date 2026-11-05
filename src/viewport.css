@@ -122,3 +122,55 @@
 .cord-system--israel .rope-body { stroke:#31577a; } .cord-system--israel .rope-braid { stroke:#a6c5d8; } .cord-system--israel .cord-tassel { filter:hue-rotate(170deg) saturate(.6); }
 @media (width < 700px) { .book-motion .cord-system--israel { inset-inline-start:calc(50% - 32.5px); --rope-length:42px; } .book-motion .scene--israel .intro { padding-block-start: 160px; } .intro--israel h2 { font-size:clamp(35px, 10vw, 64px); } .israel-copy { max-width:80%; font-size:clamp(13px,2.1vh,18px); } .israel-skyline { height:29%; } }
 }
+
+@font-face { font-family: "Jerusalem Cyrillic"; src: url("src/fonts/Jerusalem-Cyrillic.ttf") format("truetype"); font-display: swap; }
+@layer viewport {
+.scene--israel { --ink:#405367; --paper:#f3ead6; --paper-light:#fff7e5; --stone:#d6c3a0; --gold:#b89755; --sea:#243f59; font-family: "Palatino Linotype", Palatino, serif; }
+.hero--israel { background:radial-gradient(ellipse at 65% 35%,#fff5d8,#e9dfc9 75%); }
+.israel-frame { position:absolute; inset:0; z-index:3; pointer-events:none; }
+.israel-frame svg { width:100%; height:100%; }
+.israel-medallion { width:min(68px,8cqh); color:var(--gold); margin:0 auto 12px; }
+.israel-medallion svg { display:block; width:100%; }
+.book-motion .scene--israel .intro { padding:5cqh 18% 0; }
+.intro--israel .welcome { font-family:inherit; font-size:clamp(9px,1.5cqh,13px); letter-spacing:.2em; }
+.intro--israel h2 { font-family:"Jerusalem Cyrillic",serif; font-size:min(8cqw,12cqh); font-weight:400; letter-spacing:-.025em; line-height:1.2; }
+.israel-copy { font-family:inherit; font-size:clamp(14px,2.6cqh,24px); max-width:560px; line-height:1.45; margin:1em auto .6em; }
+.israel-rule { width:170px; height:24px; color:var(--gold); }
+.israel-city { position:absolute; inset:auto 0 0; height:37%; z-index:1; color:var(--ink); }
+.israel-city .israel-skyline { width:100%; height:100%; bottom:0; }
+.israel-atmosphere { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.israel-rays { position:absolute; inset:-60%; background:conic-gradient(from 165deg at 60% 25%,transparent 0deg,#fff7db90 12deg,transparent 25deg,#fff7db70 37deg,transparent 50deg); animation:israel-light 18s ease-in-out infinite alternate; transform-origin:60% 25%; }
+.israel-birds { position:absolute; width:22%; height:60px; top:62%; left:-25%; animation:israel-flight 32s linear infinite; opacity:.6; }
+.israel-rays,.israel-birds { animation-play-state:paused; }
+.book[data-scene="israel"][data-turning="false"] .israel-rays,.book[data-scene="israel"][data-turning="false"] .israel-birds { animation-play-state:running; }
+.page-hidden .israel-rays,.page-hidden .israel-birds { animation-play-state:paused !important; }
+.book-motion .cord-system--israel { inset-inline-start:3%; inset-inline-end:auto; }
+@keyframes israel-light { from { transform:rotate(-9deg); opacity:.3; } to { transform:rotate(9deg); opacity:.7; } }
+@keyframes israel-flight { from { transform:translateX(0) translateY(10px); } to { transform:translateX(650%) translateY(-30px); } }
+@media(width < 700px) {
+.book-motion .cord-system--israel { inset-inline-start:auto; inset-inline-end:25px; inset-block-start:240px; --rope-length:42px; }
+.book-motion .scene--israel .intro { padding:13cqh 19% 0; }
+.intro--israel h2 { font-size:9cqw; }
+.israel-copy { max-width:100%; font-size:clamp(13px,2.1cqh,19px); }
+.israel-city { height:30%; }
+.israel-medallion { width:40px; }
+.israel-rule { width:120px; }
+}
+@media (prefers-reduced-motion:reduce) { .israel-rays,.israel-birds { animation:none; } .israel-birds { left:10%; } }
+}
+
+@layer viewport {
+.israel-frame { z-index:2; } .israel-city { z-index:3; pointer-events:none; } .intro--israel { z-index:4; }
+.book[data-scene="israel"] .cord-system--israel { inset-inline-start:3%; --rope-length:210px; }
+.book[data-scene="israel"] .cord-system--newyork { inset-inline-start:3%; --rope-length:40px; }
+.book[data-scene="israel"] .cord-system--petersburg { inset-inline-start:3%; --rope-length:125px; }
+.book[data-scene="israel"] .cord-system:not([class*="--"]) { inset-inline-end:3%; --rope-length:40px; }
+.book[data-scene="israel"] .cord-system--mecca { inset-inline-start:auto; inset-inline-end:3%; --rope-length:125px; }
+@media(width < 700px) {
+.book[data-scene="israel"] .cord-system--israel,.book[data-scene="israel"] .cord-system--newyork,.book[data-scene="israel"] .cord-system--petersburg { inset-inline-start:0; inset-inline-end:auto; }
+.book[data-scene="israel"] .cord-system:not([class*="--"]),.book[data-scene="israel"] .cord-system--mecca { inset-inline-end:0; }
+.book[data-scene="israel"] .cord-label { font-size:8px; margin-top:3px; }
+.book-motion .scene--israel .intro { padding-inline:21%; }
+.israel-city { inset-inline:6%; }
+}
+}

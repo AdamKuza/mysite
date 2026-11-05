@@ -143,13 +143,13 @@
       secretSystem.style.setProperty('inset-block-start', (bounds.top - stageBounds.top) + 'px');
       secretSystem.style.setProperty('inset-inline-start', (bounds.left + bounds.width / 2 - stageBounds.left - secretSystem.clientWidth / 2) + 'px');
     }
-    if (scene !== 1 && scene !== 3) {
+    if (scene !== 1 && scene !== 3 && scene !== 5) {
       cords.forEach((cord, index) => { if (index !== 4) cord.closest('.cord-system').style.removeProperty('inset-block-start'); });
       cacheCordFrames(scene);
       return;
     }
     const frameHero = scenes[scene].querySelector('.hero');
-    const rail = scenes[scene].querySelector(scene === 3 ? '#mecca-cord-rail' : '#kremlin-cord-rail');
+    const rail = scenes[scene].querySelector(scene === 5 ? '#israel-cord-rail' : scene === 3 ? '#mecca-cord-rail' : '#kremlin-cord-rail');
     if (!frameHero?.clientWidth || typeof rail?.getTotalLength !== 'function') { cacheCordFrames(scene); return; }
     const total = rail.getTotalLength();
     for (const cord of cords.filter((_, index) => index !== 4)) {
@@ -545,6 +545,7 @@
   });
   book.addEventListener('book:turnend', () => {
     transitioning = false;
+    measure();
     system.classList.remove('is-transitioning');
     lift = 0;
     draw();
