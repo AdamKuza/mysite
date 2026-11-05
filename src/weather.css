@@ -1,0 +1,15 @@
+/* Движутся целые листы с повторяющимся узором осадков, а не отдельные частицы. Это сокращает работу JavaScript и перерисовки SVG. */
+@layer book {
+/* Отсечение и изоляция удерживают дождь и снег внутри центральной области. */
+  .weather-field { contain: strict; }
+  .weather-sway { position: absolute; inset: 0; opacity: var(--weather-opacity); animation: weather-gust var(--gust-duration) ease-in-out infinite alternate; }
+  .weather-sheet { position: absolute; top: 0; animation: weather-fall var(--fall-duration) linear infinite; animation-delay: var(--fall-delay); }
+  .weather-sheet svg { inline-size: 100%; block-size: 100%; max-inline-size: none; }
+  .weather-snow .weather-sway { animation: weather-gust var(--gust-duration) ease-in-out infinite alternate, weather-sway var(--sway-duration) ease-in-out infinite alternate; animation-delay: 0s, var(--sway-delay); }
+  .weather-field[data-weather-running="true"] .weather-sheet { will-change: transform; }
+  .weather-field[data-weather-running="false"] :is(.weather-sheet, .weather-sway) { animation-play-state: paused; }
+/* Смещение равно периоду узора; последний кадр совпадает с первым следующего цикла. */
+  @keyframes weather-fall { from { transform: translate3d(0, var(--weather-top), 0); } to { transform: translate3d(var(--weather-left), 0, 0); } }
+  @keyframes weather-sway { from { transform: translateX(-12px); } to { transform: translateX(12px); } }
+  @keyframes weather-gust { from { opacity: calc(var(--weather-opacity) * .55); } to { opacity: var(--weather-opacity); } }
+}

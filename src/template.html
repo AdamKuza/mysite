@@ -1,0 +1,267 @@
+<!-- Исходный шаблон страницы. build.ps1 подставляет SVG-фрагменты и создаёт index.html; стили и логика подключаются отдельными файлами. -->
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#124e53">
+  <meta name="description" content="Адамъ Кузнецовъ — персональный сайтъ.">
+  <title>Адамъ Кузнецовъ — Персональный сайтъ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- Общая библиотека SVG-символов: повторяющиеся орнаменты используются через ссылки, а не копируются целиком. -->
+  __ORNAMENTS__
+  <main class="book" aria-label="Персональный сайтъ Адама Кузнецова">
+  <div class="book-stage">
+<!-- Петербург — начальная сцена. data-fold у деталей задаёт способ сгиба, data-delay — их очередь при перелистывании. -->
+  <section id="petersburg-scene" class="site scene scene--petersburg" aria-labelledby="name">
+    <header class="masthead">
+      <span class="small-seal" aria-hidden="true">АК</span>
+      <div class="header-title"><p class="site-label">ПЕРСОНАЛЬНЫЙ САЙТЪ</p></div>
+      <button class="compass-trigger" type="button" aria-label="Роза вѣтровъ"><svg class="compass" viewBox="0 0 80 80" aria-hidden="true"><use href="#compass"/></svg></button>
+    </header>
+    <div class="hero">
+      <div class="petersburg-rain" aria-hidden="true" hidden></div>
+      <div class="wall" data-fold="left" data-delay=".18" aria-hidden="true"><svg class="wall-pattern"><rect width="100%" height="100%" fill="url(#damask)"/></svg></div>
+      <div class="wall wall-right" data-fold="right" data-delay=".18" aria-hidden="true"><svg class="wall-pattern"><rect width="100%" height="100%" fill="url(#damask)"/></svg></div>
+      <div class="pediment" data-fold="left" aria-hidden="true"><svg viewBox="0 0 400 180" preserveAspectRatio="none"><use href="#gable"/></svg></div>
+      <div class="pediment pediment-right" data-fold="right" aria-hidden="true"><svg viewBox="0 0 400 180" preserveAspectRatio="none"><use href="#gable"/></svg></div>
+      __COLUMNS__
+      <div class="intro">
+        <div class="crest" data-fold="paper" data-delay=".10" aria-hidden="true">
+          <svg viewBox="0 0 230 160"><use href="#crest"/><text class="monogram" x="115" y="91" dy=".35em" text-anchor="middle">АК</text></svg>
+        </div>
+        <div class="intro-copy" data-fold="copy" data-delay=".22">
+        <p class="welcome">ДОБРО ПОЖАЛОВАТЬ НА САЙТЪ</p>
+        <!-- Реальный текст: имя и фамилию можно редактировать здесь. -->
+        <h1 id="name"><span>АДАМА</span> <span>КУЗНЕЦОВА</span></h1>
+        <svg class="name-rule" viewBox="0 0 220 36" aria-hidden="true"><use href="#divider"/></svg>
+        </div>
+      </div>
+      <div class="harbor" aria-hidden="true">
+        __CLOUDS__
+        __CITY__
+        __SEA__
+        <svg class="distant-boat" data-fold="paper" data-delay=".12" viewBox="0 0 70 130">
+          <g class="boat-voyage"><g class="boat-bobbing">
+          <g stroke="currentColor" stroke-width="1" fill="var(--paper)">
+            <path d="M34 4v106M34 9 8 99h25ZM38 24l23 77H38Z"/>
+            <path d="m4 108 60-3-12 12H17Z" fill="currentColor"/>
+            <path d="M34 3 14 108m20-96 29 94M8 122h49m-40 5h32" fill="none" stroke-width=".6"/>
+          </g>
+          </g></g>
+        </svg>
+        __SHIP__
+      </div>
+    </div>
+    <footer class="site-footer">
+      <span>Адамъ Кузнецовъ</span>
+      <span class="footer-rule" aria-hidden="true">✧</span>
+      <span>Персональный сайтъ</span>
+    </footer>
+  </section>
+<!-- Москва: кирпичная рамка, снег и кремлёвский пейзаж без воды. -->
+  <section id="moscow-scene" class="site scene scene--moscow" aria-labelledby="moscow-title">
+    <header class="masthead">
+      <span class="small-seal" aria-hidden="true">АК</span>
+      <div class="header-title"><p class="site-label">ПЕРСОНАЛЬНЫЙ САЙТЪ</p></div>
+      <svg class="moscow-header-rosette" viewBox="0 0 80 80" aria-hidden="true"><path d="M40 5 51 25 75 40 51 54 40 75 28 54 5 40 28 25Z" fill="none" stroke="currentColor"/><path d="M40 21 58 40 40 59 22 40ZM40 5V21M75 40H58M40 75V59M5 40H22" fill="none" stroke="currentColor"/></svg>
+    </header>
+    <div class="hero hero--moscow">
+      <div class="moscow-snow" aria-hidden="true" hidden></div>
+      <div class="moscow-frame" data-fold="paper" data-delay=".06" aria-hidden="true">__MOSCOW_FRAME__</div>
+      <div class="intro intro--moscow">
+        <div class="moscow-medallion" data-fold="paper" data-delay=".12" aria-hidden="true">
+          <svg viewBox="0 0 120 130"><path d="M18 9H102V71Q102 103 60 121Q18 103 18 71Z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M25 16H95V70Q95 97 60 113Q25 97 25 70Z" fill="none" stroke="currentColor" stroke-width=".6"/><text x="60" y="66" dy=".3em" text-anchor="middle">АК</text><path d="M40 93H80M60 84V102" stroke="currentColor" stroke-width=".7"/></svg>
+        </div>
+        <div class="intro-copy" data-fold="copy" data-delay=".24">
+          <p class="welcome">МОЙ ГОРОДЪ</p>
+          <h2 id="moscow-title"><span class="residence-prefix">Живу въ</span><span>Москвѣ</span></h2>
+          <svg class="moscow-rule" viewBox="0 0 240 32" aria-hidden="true"><path d="M0 16H90M150 16H240M102 16 120 3 138 16 120 29ZM109 16 120 9 131 16 120 23Z" fill="none" stroke="currentColor" stroke-width=".8"/></svg>
+        </div>
+      </div>
+      <div class="harbor harbor--moscow" aria-hidden="true">
+        __MOSCOW__
+      </div>
+    </div>
+    <footer class="site-footer">
+      <span>Адамъ Кузнецовъ</span>
+      <span class="footer-rule" aria-hidden="true">✧</span>
+      <span>Персональный сайтъ</span>
+    </footer>
+  </section>
+<!-- Нью-Йорк: статуя, вода и дождь. Городское оформление задаётся отдельной темой. -->
+  <section id="newyork-scene" class="site scene scene--newyork" aria-labelledby="newyork-title">
+    <header class="masthead">
+      <span class="small-seal" aria-hidden="true">АК</span>
+      <div class="header-title"><p class="site-label">ПЕРСОНАЛЬНЫЙ САЙТЪ</p></div>
+      <svg class="newyork-header-mark" viewBox="0 0 80 80" aria-hidden="true"><path d="M10 70V25H24V15H34V5H46V15H56V25H70V70M17 70V32H31V22H49V32H63V70M24 70V39H38V29H42V39H56V70M38 5V70M42 5V70" fill="none" stroke="currentColor"/></svg>
+    </header>
+    <div class="hero hero--newyork">
+      <div class="newyork-rain" aria-hidden="true" hidden></div>
+      <div class="newyork-frame" data-fold="paper" data-delay=".06" aria-hidden="true">__NEWYORK_FRAME__</div>
+      <div class="intro intro--newyork">
+        <div class="newyork-medallion" data-fold="paper" data-delay=".12" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M20 12H80V88H20ZM26 18H74V82H26" fill="none" stroke="currentColor" stroke-width=".7"/><text x="50" y="50" dy=".35em" text-anchor="middle">АК</text></svg></div>
+        <div class="intro-copy" data-fold="copy" data-delay=".24">
+          <p class="welcome">ЗА ОКЕАНЪ · ВЪ США</p>
+          <h2 id="newyork-title"><span>Нью-Іоркъ</span></h2>
+          <p class="newyork-copy">Знаю американскій англійскій.<br>Мечтаю слетать въ Нью-Іоркъ.</p>
+          <svg class="newyork-rule" viewBox="0 0 240 24" aria-hidden="true"><path d="M0 12H105M135 12H240M115 8H125V16H115Z" fill="none" stroke="currentColor" stroke-width=".8"/></svg>
+        </div>
+      </div>
+      <div class="liberty-scene" data-fold="paper" data-delay=".14" aria-hidden="true">
+        __NEWYORK__
+      </div>
+    </div>
+    <footer class="site-footer">
+      <span>Адамъ Кузнецовъ</span>
+      <span class="footer-rule" aria-hidden="true">✧</span>
+      <span>Персональный сайтъ</span>
+    </footer>
+  </section>
+<!-- Мекка: плоская гравюра Каабы, арка и приземный песок с тепловым искажением. -->
+  <section id="mecca-scene" class="site scene scene--mecca" aria-labelledby="mecca-title">
+    <header class="masthead">
+      <span class="small-seal" aria-hidden="true">АК</span>
+      <div class="header-title"><p class="site-label">ПЕРСОНАЛЬНЫЙ САЙТЪ</p></div>
+      <svg class="mecca-header-star" viewBox="0 0 80 80" aria-hidden="true"><path d="M40 5 50 18H66V33L77 40 66 49V64H50L40 77 30 64H14V49L3 40 14 33V18H30Z" fill="none" stroke="currentColor"/><circle cx="40" cy="41" r="14" fill="none" stroke="currentColor"/></svg>
+    </header>
+    <div class="hero hero--mecca">
+      <svg class="mecca-air" aria-hidden="true" focusable="false" hidden>
+        <path opacity=".28"/><path opacity=".48"/>
+      </svg>
+      <div class="mecca-frame" data-fold="paper" data-delay=".06" aria-hidden="true">__MECCA_FRAME__</div>
+      <div class="intro intro--mecca">
+        <div class="mecca-medallion" data-fold="paper" data-delay=".12" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><path d="M60 3 75 23H97V45L117 60 97 75V97H75L60 117 45 97H23V75L3 60 23 45V23H45Z" fill="none" stroke="currentColor" stroke-width="1"/><path d="M60 13 73 31H89V47L107 60 89 73V89H73L60 107 47 89H31V73L13 60 31 47V31H47Z" fill="none" stroke="currentColor" stroke-width=".6"/><circle cx="60" cy="60" r="31" fill="none" stroke="currentColor" stroke-width=".7"/><text x="60" y="61" dy=".3em" text-anchor="middle">АК</text></svg>
+        </div>
+        <div class="intro-copy" data-fold="copy" data-delay=".24">
+          <p class="welcome">О ВѢРѢ</p>
+          <h2 id="mecca-title"><span>Мекка</span></h2>
+          <p class="mecca-copy">Исповѣдую исламъ<br>суннитскаго толку.</p>
+          <svg class="mecca-rule" viewBox="0 0 240 32" aria-hidden="true"><path d="M0 16H91M149 16H240M120 2 126 10H134V22H126L120 30 114 22H106V10H114Z" fill="none" stroke="currentColor" stroke-width=".8"/><path d="m120 9 7 7-7 7-7-7Z" fill="none" stroke="currentColor" stroke-width=".7"/></svg>
+        </div>
+      </div>
+      <div class="mecca-scene" data-fold="paper" data-delay=".14" aria-hidden="true">
+        __MECCA__
+      </div>
+    </div>
+    <footer class="site-footer">
+      <span>Адамъ Кузнецовъ</span>
+      <span class="footer-rule" aria-hidden="true">✧</span>
+      <span>Персональный сайтъ</span>
+    </footer>
+  </section>
+<!-- Секретная сцена открывается после десяти нажатий на розу ветров и натяжения появившейся верёвки. -->
+  <section id="safari-scene" class="site scene scene--safari" aria-labelledby="safari-title">
+    <header class="masthead"><span class="small-seal">АК</span><div class="header-title"><p class="site-label">ТАЙНАЯ КОМНАТА</p></div></header>
+    <div class="hero hero--safari"><div class="safari-message" data-fold="copy" data-delay=".18"><h2 id="safari-title"><span>Я ненавижу</span><span>WebKit</span></h2></div></div>
+    <footer class="site-footer"><span>Адамъ Кузнецовъ</span><span class="footer-rule" aria-hidden="true">✧</span><span>Персональный сайтъ</span></footer>
+  </section>
+<!-- Верёвки вынесены из отдельных сцен: сохраняют свою физику и постоянные направления, пока рамки меняются вокруг них. -->
+  <div class="cord-system">
+    <span class="cord-anchor" aria-hidden="true"></span>
+    <div class="cord-feed">
+    <svg class="rope-line" aria-hidden="true">
+      <path class="rope-shadow" d="M50 10V140"/>
+      <path class="rope-body" d="M50 10V140"/>
+      <path class="rope-braid" d="M50 10V140"/>
+    </svg>
+  <button class="pull-cord" type="button" aria-label="Потянуть верёвочку вниз и открыть страницу о Москве" aria-controls="moscow-scene" aria-describedby="cord-instructions">
+    <svg class="cord-tassel" viewBox="0 0 48 85" aria-hidden="true">
+      <defs><linearGradient id="tassel-gold"><stop stop-color="#79602d"/><stop offset=".35" stop-color="#dfca91"/><stop offset=".6" stop-color="#b79b5b"/><stop offset="1" stop-color="#806530"/></linearGradient></defs>
+      <path d="M20 0h8v8q10 6 5 15l-3 7 11 40q-17 15-34 0l11-40-3-7q-5-9 5-15Z" fill="url(#tassel-gold)" stroke="#8d723d" stroke-width=".8"/>
+      <path d="M15 21h18v9H15ZM14 37h20l2 7H12Z" fill="#d9c184" stroke="#8d723d" stroke-width=".8"/>
+      <path d="M19 47 12 72m10-25-3 29m6-29v31m3-31 4 29m-1-29 7 26M19 10q-4 6 0 10m5-12v13m5-11q4 6 0 10M16 24h16m-17 3h18M15 39h18m-19 3h20" fill="none" stroke="#6e542a" stroke-width=".7"/>
+    </svg>
+    <span class="cord-label"><span class="cord-action">Нажмите</span><span class="cord-destination">въ Москву</span></span>
+  </button>
+    </div>
+  </div>
+  <div class="cord-system cord-system--petersburg">
+    <span class="cord-anchor" aria-hidden="true"></span>
+    <div class="cord-feed">
+    <svg class="rope-line" aria-hidden="true">
+      <path class="rope-shadow" d="M50 10V140"/>
+      <path class="rope-body" d="M50 10V140"/>
+      <path class="rope-braid" d="M50 10V140"/>
+    </svg>
+  <button class="pull-cord" type="button" aria-label="Потянуть верёвочку вниз и открыть страницу о Петербургѣ" aria-controls="petersburg-scene" aria-describedby="cord-instructions">
+    <svg class="cord-tassel" viewBox="0 0 48 85" aria-hidden="true">
+      <defs><linearGradient id="tassel-petersburg"><stop stop-color="#79602d"/><stop offset=".35" stop-color="#dfca91"/><stop offset=".6" stop-color="#b79b5b"/><stop offset="1" stop-color="#806530"/></linearGradient></defs>
+      <path d="M20 0h8v8q10 6 5 15l-3 7 11 40q-17 15-34 0l11-40-3-7q-5-9 5-15Z" fill="url(#tassel-petersburg)" stroke="#8d723d" stroke-width=".8"/>
+      <path d="M15 21h18v9H15ZM14 37h20l2 7H12Z" fill="#d9c184" stroke="#8d723d" stroke-width=".8"/>
+      <path d="M19 47 12 72m10-25-3 29m6-29v31m3-31 4 29m-1-29 7 26M19 10q-4 6 0 10m5-12v13m5-11q4 6 0 10M16 24h16m-17 3h18M15 39h18m-19 3h20" fill="none" stroke="#6e542a" stroke-width=".7"/>
+    </svg>
+    <span class="cord-label"><span class="cord-action">Нажмите</span><span class="cord-destination">Въ Петербургъ</span></span>
+  </button>
+    </div>
+  </div>
+  <div class="cord-system cord-system--newyork">
+    <span class="cord-anchor" aria-hidden="true"></span>
+    <div class="cord-feed">
+    <svg class="rope-line" aria-hidden="true">
+      <path class="rope-shadow" d="M50 10V140"/>
+      <path class="rope-body" d="M50 10V140"/>
+      <path class="rope-braid" d="M50 10V140"/>
+    </svg>
+  <button class="pull-cord" type="button" aria-label="Потянуть верёвочку вниз и открыть страницу о Нью-Йорке" aria-controls="newyork-scene" aria-describedby="cord-instructions">
+    <svg class="cord-tassel" viewBox="0 0 48 85" aria-hidden="true">
+      <defs><linearGradient id="tassel-jade"><stop stop-color="#79602d"/><stop offset=".35" stop-color="#dfca91"/><stop offset=".6" stop-color="#b79b5b"/><stop offset="1" stop-color="#806530"/></linearGradient></defs>
+      <path d="M20 0h8v8q10 6 5 15l-3 7 11 40q-17 15-34 0l11-40-3-7q-5-9 5-15Z" fill="url(#tassel-jade)" stroke="#8d723d" stroke-width=".8"/>
+      <path d="M15 21h18v9H15ZM14 37h20l2 7H12Z" fill="#d9c184" stroke="#8d723d" stroke-width=".8"/>
+      <path d="M19 47 12 72m10-25-3 29m6-29v31m3-31 4 29m-1-29 7 26M19 10q-4 6 0 10m5-12v13m5-11q4 6 0 10M16 24h16m-17 3h18M15 39h18m-19 3h20" fill="none" stroke="#6e542a" stroke-width=".7"/>
+    </svg>
+    <span class="cord-label"><span class="cord-action">Нажмите</span><span class="cord-destination">въ Нью-Іоркъ</span></span>
+  </button>
+    </div>
+  </div>
+  <div class="cord-system cord-system--mecca">
+    <span class="cord-anchor" aria-hidden="true"></span>
+    <div class="cord-feed">
+    <svg class="rope-line" aria-hidden="true">
+      <path class="rope-shadow" d="M50 10V140"/>
+      <path class="rope-body" d="M50 10V140"/>
+      <path class="rope-braid" d="M50 10V140"/>
+    </svg>
+  <button class="pull-cord" type="button" aria-label="Потянуть верёвочку вниз и открыть страницу о Меккѣ" aria-controls="mecca-scene" aria-describedby="cord-instructions">
+    <svg class="cord-tassel" viewBox="0 0 48 85" aria-hidden="true">
+      <defs><linearGradient id="tassel-green"><stop stop-color="#164a32"/><stop offset=".35" stop-color="#acd09b"/><stop offset=".6" stop-color="#43885b"/><stop offset="1" stop-color="#225c3c"/></linearGradient></defs>
+      <path d="M20 0h8v8q10 6 5 15l-3 7 11 40q-17 15-34 0l11-40-3-7q-5-9 5-15Z" fill="url(#tassel-green)" stroke="#27633e" stroke-width=".8"/>
+      <path d="M15 21h18v9H15ZM14 37h20l2 7H12Z" fill="#90ba7f" stroke="#27633e" stroke-width=".8"/>
+      <path d="M19 47 12 72m10-25-3 29m6-29v31m3-31 4 29m-1-29 7 26M19 10q-4 6 0 10m5-12v13m5-11q4 6 0 10M16 24h16m-17 3h18M15 39h18m-19 3h20" fill="none" stroke="#16492e" stroke-width=".7"/>
+    </svg>
+    <span class="cord-label"><span class="cord-action">Нажмите</span><span class="cord-destination">Въ Мекку</span></span>
+  </button>
+    </div>
+  </div>
+<!-- Секретная верёвка скрыта до разблокировки. Обычный короткий клик по ней не заменяет натяжение вниз. -->
+  <div class="cord-system cord-system--secret" hidden>
+    <span class="cord-anchor" aria-hidden="true"></span>
+    <div class="cord-feed">
+    <svg class="rope-line" aria-hidden="true">
+      <path class="rope-shadow" d="M50 10V140"/>
+      <path class="rope-body" d="M50 10V140"/>
+      <path class="rope-braid" d="M50 10V140"/>
+    </svg>
+  <button class="pull-cord" data-pull-only="true" type="button" aria-label="Потянуть верёвочку вниз и открыть страницу съ секретомъ" aria-controls="safari-scene" aria-describedby="cord-instructions">
+    <svg class="cord-tassel" viewBox="0 0 48 85" aria-hidden="true">
+      <defs><linearGradient id="tassel-secret"><stop stop-color="#79602d"/><stop offset=".35" stop-color="#dfca91"/><stop offset=".6" stop-color="#b79b5b"/><stop offset="1" stop-color="#806530"/></linearGradient></defs>
+      <path d="M20 0h8v8q10 6 5 15l-3 7 11 40q-17 15-34 0l11-40-3-7q-5-9 5-15Z" fill="url(#tassel-secret)" stroke="#8d723d" stroke-width=".8"/>
+      <path d="M15 21h18v9H15ZM14 37h20l2 7H12Z" fill="#d9c184" stroke="#8d723d" stroke-width=".8"/>
+      <path d="M19 47 12 72m10-25-3 29m6-29v31m3-31 4 29m-1-29 7 26M19 10q-4 6 0 10m5-12v13m5-11q4 6 0 10M16 24h16m-17 3h18M15 39h18m-19 3h20" fill="none" stroke="#6e542a" stroke-width=".7"/>
+    </svg>
+    <span class="cord-label"><span class="cord-action">Нажмите</span><span class="cord-destination">Въ тайную комнату</span></span>
+  </button>
+    </div>
+  </div>
+<!-- Общие инструкции и живой статус для навигации с клавиатуры и скринридера. -->
+  <span id="cord-instructions" class="visually-hidden">Кисточку можно раскачивать. Для перехода нажмите на кисточку или потяните её вниз и отпустите. С клавиатуры: стрелка вниз, Enter или пробел.</span>
+  <span class="book-status visually-hidden" role="status" aria-live="polite"></span>
+  </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

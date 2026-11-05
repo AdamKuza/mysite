@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1000" preserveAspectRatio="none" class="mecca-frame-art">
+  <defs>
+    <path id="mecca-cord-rail" d="M112 208Q112 134 224 111H370Q480 108 600 30Q720 108 830 111H976Q1088 134 1088 208"/>
+    <pattern id="mecca-geometric-tile" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M32 5 40 13H51V24L59 32 51 40V51H40L32 59 24 51H13V40L5 32 13 24V13H24Z" fill="none" stroke="var(--gold)" stroke-width=".8"/>
+      <path d="M0 0 32 13 64 0M0 64 32 51 64 64M0 0 13 32 0 64M64 0 51 32 64 64M24 24H40V40H24ZM24 24 40 40M40 24 24 40" fill="none" stroke="var(--gold)" stroke-width=".5"/>
+      <circle cx="32" cy="32" r="3" fill="var(--gold)"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="1000" fill="var(--sea)"/>
+  <rect width="1200" height="1000" fill="url(#mecca-geometric-tile)" opacity=".32"/>
+  <path d="M112 1000V208Q112 134 224 111H370Q480 108 600 30Q720 108 830 111H976Q1088 134 1088 208V1000Z" fill="var(--paper)" stroke="var(--gold)" stroke-width="2"/>
+  <path d="M122 1000V211Q122 143 226 121H372Q485 119 600 43Q715 119 828 121H974Q1078 143 1078 211V1000" fill="none" stroke="var(--gold)" stroke-width=".8"/>
+  <path d="M101 1000V205Q101 125 221 100H368Q477 97 600 17Q723 97 832 100H979Q1099 125 1099 205V1000M15 0V1000M28 0V1000M1172 0V1000M1185 0V1000" fill="none" stroke="var(--gold)" stroke-width=".65" opacity=".75"/>
+  <path d="M46 0V1000M83 0V1000M1117 0V1000M1154 0V1000" fill="none" stroke="var(--gold)" stroke-width=".45" opacity=".35"/>
+  <g fill="var(--gold)">
+    <path d="m600 21 4 8-4 7-4-7ZM106 257l4 8-4 8-4-8ZM1094 257l4 8-4 8-4-8Z"/>
+  </g>
+</svg>

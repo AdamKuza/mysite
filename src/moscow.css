@@ -1,0 +1,51 @@
+/* Тема Москвы: локальный шрифт Ponomar и кирпичная палитра Кремля. */
+@font-face {
+  font-family: "Ponomar";
+  src: url("__MOSCOW_FONT__") format("truetype");
+  font-style: normal; font-weight: 400; font-display: swap;
+}
+@layer book {
+  .scene--moscow {
+    --ink: #6a3029; --paper: #f4eddf; --paper-light: #fff9ed;
+    --brick: #923f32; --stone: #e7d9be; --gold: #ad8950;
+    color: var(--ink); background: var(--paper);
+  }
+  .scene--moscow .masthead, .scene--moscow .site-footer {
+    background: var(--brick); color: var(--paper-light); border-color: var(--stone);
+  }
+  .scene--moscow .site-label { font-family: "Ponomar", "Palatino Linotype", serif; letter-spacing: .22em; }
+  .scene--moscow .small-seal { border-radius: 0; border-color: var(--stone); outline-color: var(--gold); font-family: "Ponomar", serif; }
+  .moscow-header-rosette { inline-size: 42px; color: var(--stone); }
+  .hero--moscow { background: var(--paper); }
+  .moscow-frame { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .moscow-frame-art { inline-size: 100%; block-size: 100%; }
+/* Отступ монограммы связан с вершиной арки; точное положение рассчитывается в book.js после измерения сцены. */
+  .intro--moscow { padding-block-start: var(--moscow-crest-top, 130px); }
+  .moscow-medallion { inline-size: 68px; margin-inline: auto; color: var(--gold); }
+  .moscow-medallion svg { inline-size: 100%; block-size: auto; }
+  .moscow-medallion text { font-family: "Ponomar", serif; font-size: 32px; fill: var(--ink); }
+  .intro--moscow .welcome { margin-block: 13px 18px; font-family: "Ponomar", "Palatino Linotype", serif; font-size: 13px; letter-spacing: .27em; }
+  .intro--moscow .welcome::before, .intro--moscow .welcome::after { inline-size: 42px; }
+  .intro--moscow h2 {
+    font-family: "Ponomar", "Palatino Linotype", serif;
+    font-size: clamp(82px, 10cqw, 145px); font-variant-caps: normal;
+    font-weight: 400; line-height: 1.08; letter-spacing: -.025em;
+  }
+  .intro--moscow .residence-prefix { font-family: "Palatino Linotype", Palatino, serif; font-size: .3em; letter-spacing: .08em; margin-block-end: .28em; }
+  .moscow-rule { inline-size: 180px; block-size: 30px; margin: 22px auto 0; color: var(--gold); }
+  .scene--moscow .harbor--moscow { color: var(--ink); }
+  .scene--moscow .moscow-skyline { color: var(--ink); }
+  .book[data-scene="moscow"] .cord-system:not(.is-stowed) .cord-label { color: #6a3029; }
+  @media (width < 700px) {
+    .intro--moscow { padding: var(--moscow-crest-top, 100px) 39px 0; }
+    .moscow-medallion { inline-size: 54px; }
+    .intro--moscow .welcome { margin-block: 10px 16px; font-size: 11px; }
+    .intro--moscow h2 { font-size: clamp(64px, 19cqw, 95px); }
+    .intro--moscow .residence-prefix { font-size: .35em; }
+    .moscow-rule { inline-size: 140px; margin-block-start: 15px; }
+    .moscow-header-rosette { inline-size: 28px; }
+    .book[data-scene="moscow"] .cord-system:not(.is-stowed) .cord-label { font-size: 8px; letter-spacing: 0; line-height: 1.25; margin-block-start: 40px; translate: -12px 0; }
+    .book[data-scene="moscow"] .cord-system:not(.is-stowed) .cord-action { font-size: 8px; }
+    .book[data-scene="moscow"] .cord-system:not(.is-stowed) .cord-destination { white-space: nowrap; }
+  }
+}

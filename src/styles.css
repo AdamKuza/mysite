@@ -1,0 +1,224 @@
+/* Общие стили Петербурга и базовая разметка остальных сцен. Порядок слоёв каскада важен: тематические переопределения подключаются позже. */
+@layer reset, palette, architecture, typography, engraving, responsive, motion;
+/* Минимальный сброс браузерных отступов и единая модель размеров для HTML и SVG. */
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  body, h1, p, figure { margin: 0; }
+  svg { display: block; max-inline-size: 100%; }
+}
+/* Цвета оформлены переменными: отдельная сцена может заменить палитру, не дублируя все правила. */
+@layer palette {
+  :root {
+    color-scheme: light;
+    --paper: #f3eddf;
+    --paper-light: #fffaf0;
+    --ink: #113e48;
+    --sea: #124e53;
+    --sea-dark: #08373e;
+    --gold: #a78a52;
+    --stone: #e8ddc6;
+    font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    color: var(--ink);
+    background: var(--sea-dark);
+  }
+  ::selection { color: var(--paper-light); background: var(--sea); }
+  body { min-block-size: 100svh; }
+  .svg-library { position: absolute; inline-size: 0; block-size: 0; overflow: hidden; }
+  .site {
+    inline-size: 100%; min-block-size: 100svh;
+    display: grid; grid-template-rows: auto 1fr auto;
+    background: var(--paper);
+  }
+}
+/* Архитектурная рамка собрана из отдельных деталей; их можно складывать независимо при переходе. */
+@layer architecture {
+  .masthead {
+    min-block-size: 76px; padding: 12px 35px;
+    display: grid; grid-template-columns: 64px 1fr 46px;
+    align-items: center; gap: 30px;
+    border-block-end: 3px double var(--gold);
+  }
+  .small-seal {
+    display: grid; place-items: center; inline-size: 46px; aspect-ratio: 1;
+    border: 1px solid var(--gold); border-radius: 50%; outline: 1px solid var(--gold);
+    outline-offset: 4px; font-size: 23px; position: relative;
+  }
+  .small-seal::before, .small-seal::after {
+    content: "✦"; position: absolute; color: var(--gold); font-size: 13px;
+  }
+  .small-seal::before { inset-inline-start: -19px; }
+  .small-seal::after { inset-inline-end: -19px; }
+  .header-title { display: flex; align-items: center; gap: 28px; justify-content: center; }
+  .header-title::before, .header-title::after {
+    content: ""; flex: 1; block-size: 1px; max-inline-size: 400px;
+    background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold));
+  }
+  .header-title::after { rotate: 180deg; }
+  .compass { inline-size: 43px; color: var(--ink); }
+  .hero {
+    position: relative; isolation: isolate; container-type: inline-size;
+    min-block-size: 810px; overflow: clip;
+    background:
+      radial-gradient(ellipse at 50% 25%, #fffaf099, transparent 65%),
+      repeating-linear-gradient(0deg, transparent 0 4px, #90734403 4px 5px), var(--paper);
+  }
+  .wall {
+    position: absolute; inset-block: 0; inline-size: 10%; z-index: 2;
+    background: linear-gradient(90deg, #052e3670, transparent 70%), var(--sea);
+    border-inline-end: 5px double var(--gold);
+  }
+  .wall-right { inset-inline-end: 0; scale: -1 1; }
+  .wall-pattern { inline-size: 100%; block-size: 100%; opacity: .2; color: #b7ccc0; }
+  .pediment {
+    position: absolute; inset-block-start: 0; inset-inline-start: 3%;
+    inline-size: 29%; block-size: 170px; pointer-events: none; z-index: 3;
+  }
+  .pediment-right { inset-inline-start: auto; inset-inline-end: 3%; scale: -1 1; }
+  .pediment svg { inline-size: 100%; block-size: 100%; overflow: visible; }
+  .column {
+    position: absolute; inset-block: 92px 0; inset-inline-start: 2.5%;
+    inline-size: 10%; max-inline-size: 145px; display: flex;
+    align-items: center; flex-direction: column; z-index: 3;
+    filter: drop-shadow(4px 3px 2px #193a3c25);
+  }
+  .column-right { inset-inline-start: auto; inset-inline-end: 2.5%; }
+  .abacus { inline-size: 100%; block-size: 26px; flex-shrink: 0;
+    background: linear-gradient(var(--paper-light) 0 12%, #afa48e 13% 19%, var(--stone) 20% 63%, #a49c89 64% 70%, var(--paper-light) 71% 78%, #c3b79f 79%);
+    border: 1px solid #9a927f; box-shadow: 0 2px 0 var(--paper-light);
+  }
+  .capital { inline-size: 95%; block-size: 87px; flex-shrink: 0; color: #83795e; }
+  .shaft {
+    inline-size: 67%; flex: 1; min-block-size: 250px; position: relative;
+    background: repeating-linear-gradient(90deg, #f9f2e3 0 7%, #e7dcc7 9%, #b7ac96 10%, #f6eddc 13% 20%);
+    border-inline: 3px solid #dbcfb7; box-shadow: inset 3px 0 #fffbef, inset -3px 0 #a79c87;
+    clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
+  }
+  .shaft-panel {
+    position: absolute; inset: 18px 18% 25px; display: grid; place-items: center;
+    border: 3px double #b1a07a; background: var(--sea);
+    box-shadow: 0 0 0 3px #f9f1dc, 0 0 0 4px #b5a889;
+  }
+  .pendant { inline-size: 94%; block-size: 70%; color: #d9c79f; }
+  .base-ring { inline-size: 79%; block-size: 24px; flex-shrink: 0;
+    background: linear-gradient(#a99c85, #fff9e8 15% 40%, #b0a48f 41% 47%, #f7ecd8 48% 76%, #ab9f8b 77% 85%, #fff9eb 86%);
+    border: 1px solid #afa38b;
+  }
+  .plinth { inline-size: 94%; block-size: 106px; flex-shrink: 0; padding: 13px;
+    background: linear-gradient(90deg, #f9f2e1, #e2d5bc); border: 1px solid #b1a58e;
+    box-shadow: inset 3px 0 #fff8e9, 0 -3px #fdf6e8;
+  }
+  .plinth svg { inline-size: 100%; block-size: 100%; color: #968462; border: 1px solid #c1b398; padding: 9px; }
+  .foot { inline-size: 100%; block-size: 27px; flex-shrink: 0; border: 1px solid #b7a78c;
+    background: linear-gradient(#fff7e6 40%, #b9ac93 41% 50%, #e8dcc4 51%);
+  }
+  .urn {
+    position: absolute; inline-size: min(53%, 57px); block-size: auto;
+    aspect-ratio: 70 / 92;
+    inset-block-end: 100%; color: #b8a989;
+  }
+  .site-footer {
+    display: flex; align-items: center; gap: 35px; padding: 20px 34px;
+    border-block-start: 3px double var(--gold); background: var(--paper);
+    font-size: 14px;
+  }
+  .footer-rule { flex: 1; display: flex; gap: 14px; align-items: center; color: var(--gold); }
+  .footer-rule::before, .footer-rule::after { content: ""; block-size: 1px; background: var(--gold); flex: 1; }
+}
+/* Иерархия заголовков, монограмма и разделители. Размеры в cqw зависят от ширины центральной сцены. */
+@layer typography {
+  .site-label { font-size: 12px; letter-spacing: .32em; white-space: nowrap; }
+  .intro { position: relative; z-index: 2; text-align: center; padding: 28px 15% 0; }
+  .crest { inline-size: clamp(145px, 16cqw, 230px); aspect-ratio: 230 / 160; margin-inline: auto; position: relative; color: var(--gold); }
+  .crest svg { inline-size: 100%; block-size: 100%; }
+  .monogram {
+    fill: var(--ink); font-family: inherit; font-size: 42px; letter-spacing: 0;
+  }
+  .welcome { display: flex; align-items: center; justify-content: center; gap: 22px;
+    margin-block: 13px 24px; font-size: clamp(10px, 1.05cqw, 16px); letter-spacing: .4em;
+  }
+  .welcome::before, .welcome::after { content: ""; inline-size: 65px; block-size: 1px; background: var(--gold); }
+  h1 { font-weight: 400; font-size: clamp(65px, 8.5cqw, 138px); line-height: .95;
+    letter-spacing: -.055em; font-variant-caps: small-caps;
+  }
+  h1 span { display: block; }
+  h1 span + span { margin-block-start: .02em; }
+  .name-rule { inline-size: 190px; block-size: 34px; margin: 20px auto 0; color: var(--gold); }
+}
+/* Векторный пейзаж: вода, корабли и город располагаются разными слоями относительно рамки. */
+@layer engraving {
+  .harbor { position: absolute; inset: auto 9.4% 0; block-size: 350px; z-index: 1; color: var(--ink); pointer-events: none; }
+  .city { position: absolute; inset: auto 0 54px; inline-size: 100%; block-size: 225px; opacity: .72; }
+  .sea { position: absolute; inset: auto -6% 0; inline-size: 112%; max-inline-size: none; block-size: 125px; }
+  .ship { position: absolute; inset: auto auto 39px 3%; inline-size: 35%; max-inline-size: 365px; block-size: auto; overflow: visible; z-index: 2; }
+  .distant-boat { position: absolute; inset: auto 25% 30px auto; inline-size: 70px; block-size: 125px; opacity: 1; overflow: visible; z-index: 3; }
+  .clouds { position: absolute; inset: 0; block-size: 160px; inline-size: 100%; opacity: .07; }
+  .ship .rigging { fill: none; stroke: currentColor; stroke-width: .8; }
+  .ship .spar { fill: none; stroke: currentColor; stroke-width: 2.5; }
+  .ship .sail { fill: #f3eddf; stroke: currentColor; stroke-width: 1.1; }
+  .ship .seam { fill: none; stroke: currentColor; stroke-width: .45; opacity: .65; }
+  .ship .hull { fill: var(--ink); stroke: currentColor; stroke-width: 1; }
+  .ship .hull-line { fill: none; stroke: var(--paper); stroke-width: .8; }
+}
+/* Правила для узких экранов. Окончательную подгонку по высоте задаёт viewport.css. */
+@layer responsive {
+  @media (width >= 1700px) { .hero { min-block-size: 940px; } .harbor { block-size: 390px; } }
+  @media (700px <= width < 1100px) {
+    .hero { min-block-size: 760px; }
+    .intro { padding-block-start: 48px; }
+    .welcome { margin-block: 20px 30px; letter-spacing: .25em; }
+    .harbor { block-size: 340px; }
+    .ship { inline-size: 54%; inset-inline-start: 0; }
+    .column { inset-inline-start: 1.5%; inline-size: 11%; }
+    .column-right { inset-inline-start: auto; inset-inline-end: 1.5%; }
+    .capital { block-size: 65px; }
+    .plinth { block-size: 90px; padding: 9px; }
+    .pediment { inline-size: 34%; }
+  }
+  @media (width < 700px) {
+    .masthead { min-block-size: 70px; padding: 12px 18px; grid-template-columns: 42px 1fr 27px; gap: 10px; }
+    .small-seal { inline-size: 30px; font-size: 17px; outline-offset: 3px; }
+    .small-seal::before, .small-seal::after { display: none; }
+    .site-label { font-size: clamp(8px, 2.2vw, 12px); letter-spacing: .16em; }
+    .header-title { gap: 0; }
+    .header-title::before, .header-title::after { display: none; }
+    .compass { inline-size: 27px; }
+    .hero { min-block-size: max(710px, calc(100svh - 150px)); }
+    .wall { inline-size: 16px; border-inline-end: 1px solid var(--gold); }
+    .column { inset-block: 62px 0; inset-inline-start: 3px; inline-size: 31px; filter: none; }
+    .column-right { inset-inline-start: auto; inset-inline-end: 3px; }
+    .urn { inline-size: 21px; }
+    .abacus { block-size: 12px; }
+    .capital { block-size: 25px; inline-size: 36px; max-inline-size: none; }
+    .shaft { inline-size: 16px; border-inline-width: 1px; }
+    .shaft-panel { display: none; }
+    .base-ring { inline-size: 24px; block-size: 13px; }
+    .plinth { inline-size: 28px; block-size: 58px; padding: 3px; }
+    .plinth svg { padding: 3px; }
+    .foot { block-size: 14px; }
+    .pediment { inset-inline-start: 6px; inline-size: 96px; block-size: 75px; }
+    .pediment-right { inset-inline-start: auto; inset-inline-end: 6px; }
+    .intro { padding: 26px 39px 0; }
+    .crest { inline-size: 175px; }
+    .welcome { margin-block: 20px 25px; gap: 8px; font-size: 9px; letter-spacing: .22em; white-space: nowrap; }
+    .welcome::before, .welcome::after { inline-size: 16px; }
+    h1 { font-size: clamp(40px, 12cqw, 76px); line-height: 1.05; letter-spacing: -.055em; }
+    .name-rule { inline-size: 120px; block-size: 27px; margin-block-start: 18px; }
+    .harbor { inset-inline: 26px; block-size: 290px; }
+    .ship { inline-size: 91%; inset-inline-start: -8%; inset-block-end: 37px; }
+    .city { inline-size: 700px; max-inline-size: none; inset-inline-start: -160px; block-size: 170px; inset-block-end: 66px; opacity: .5; }
+    .sea { inline-size: 700px; max-inline-size: none; inset-inline-start: -80px; block-size: 110px; }
+    .distant-boat { inset-inline-end: 2%; inline-size: 37px; block-size: 85px; }
+    .clouds { display: none; }
+    .site-footer { padding: 17px 14px; gap: 9px; font-size: clamp(10px, 2.5vw, 13px); }
+    .footer-rule { gap: 0; }
+    .footer-rule::before, .footer-rule::after { display: none; }
+  }
+  @media print { body { padding: 0; background: white; } .site { box-shadow: none; } }
+}
+/* Небольшие декоративные движения; основное перелистывание управляется book.js. */
+@layer motion {
+  @media (prefers-reduced-motion: no-preference) {
+    .compass { transition: rotate .7s ease; }
+    .masthead:hover .compass { rotate: 45deg; }
+  }
+}

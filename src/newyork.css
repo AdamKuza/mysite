@@ -1,0 +1,67 @@
+/* Тема Нью-Йорка: локальный Oswald, холодная палитра и фасады по краям сцены. */
+@font-face { font-family: "Oswald"; src: url("__NEWYORK_FONT__") format("truetype"); font-style: normal; font-weight: 200 700; font-display: swap; }
+@layer book {
+  .scene--newyork { --ink: #d9e4ed; --paper: #17222e; --paper-light: #e8f0f5; --gold: #8096a7; --stone: #4c6375; --sea: #314958; --frame-dark: #0a111a; font-family: "Oswald", "Arial Narrow", Arial, sans-serif; color: var(--ink); background: var(--paper); }
+  .scene--newyork .masthead, .scene--newyork .site-footer { background: var(--frame-dark); border-color: var(--stone); color: var(--ink); }
+  .scene--newyork .site-label { letter-spacing: .3em; font-weight: 400; }
+  .scene--newyork .small-seal { border-radius: 0; border-color: var(--stone); outline-color: var(--gold); font-weight: 300; }
+  .scene--newyork .site-footer { letter-spacing: .08em; font-weight: 300; }
+  .newyork-header-mark { inline-size: 40px; color: var(--gold); }
+  .hero--newyork { background: radial-gradient(ellipse at 50% 40%, #233748, #17222e 70%); }
+/* Фасады находятся перед пейзажем и дождём, чтобы эффекты не рисовались поверх наружной рамки. */
+  .newyork-frame { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .newyork-frame-art { inline-size: 100%; block-size: 100%; }
+  .intro--newyork { padding-block-start: 86px; }
+  .newyork-medallion { inline-size: 62px; margin-inline: auto; color: var(--gold); }
+  .newyork-medallion svg { inline-size: 100%; block-size: auto; }
+  .newyork-medallion text { font: 300 32px "Oswald", sans-serif; fill: currentColor; }
+  .intro--newyork .welcome { margin-block: 18px 14px; font-size: 11px; letter-spacing: .35em; }
+  .intro--newyork .welcome::before, .intro--newyork .welcome::after { inline-size: 42px; }
+  .intro--newyork h2 { font-family: "Oswald", "Arial Narrow", Arial, sans-serif; font-size: clamp(82px, 9.5cqw, 140px); font-weight: 500; font-variant-caps: normal; text-transform: uppercase; letter-spacing: .025em; line-height: 1.15; }
+  .newyork-copy { margin-block-start: 20px; font-size: clamp(19px, 1.8cqw, 26px); font-weight: 300; letter-spacing: .025em; line-height: 1.65; color: #b4c6d4; }
+  .newyork-rule { inline-size: 180px; block-size: 24px; margin: 23px auto 0; color: var(--gold); }
+  .newyork-rain { position: absolute; inset: 0 12.5%; z-index: 2; inline-size: 75%; block-size: 100%; overflow: hidden; pointer-events: none; color: #aec8dc; }
+  .newyork-rain[hidden] { display: none; }
+  .newyork-rain path { fill: none; stroke: currentColor; stroke-width: .9; stroke-linecap: round; }
+  .liberty-scene { position: absolute; inset: auto 9.5% 0; block-size: clamp(320px, calc(100% - 420px), 450px); z-index: 1; pointer-events: none; }
+  .newyork-model { position: absolute; inset: auto 0 0; inline-size: 100%; block-size: 100%; overflow: hidden; }
+/* Вода движется отдельно от самого острова и монумента. */
+  .liberty-ripples { animation: liberty-water-rush 9.75s linear infinite; }
+  .liberty-ripples--faster { animation-duration: 13s; animation-direction: reverse; opacity: .16; }
+  @keyframes liberty-water-rush { to { translate: -180px 0; } }
+  .torch-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: torch-flicker 1s steps(1, end) infinite; }
+/* Пять дискретных состояний факела создают намеренно покадровое, неровное мерцание. */
+  @keyframes torch-flicker {
+    0%, 100% { transform: skewX(-8deg) scale(1.9, 2.05) translateX(-.5px); }
+    20% { transform: skewX(11deg) scale(2.2, 1.78) translateX(1px); }
+    40% { transform: skewX(-12deg) scale(1.78, 2.22) translateX(-1px); }
+    60% { transform: skewX(7deg) scale(2.12, 1.88) translateX(.5px); }
+    80% { transform: skewX(-5deg) scale(1.98, 2.12) translateX(1px); }
+  }
+  .cord-system--newyork .cord-anchor { background: linear-gradient(90deg, #496b69, #c6d8bd 45%, #496b69); }
+  .cord-system--newyork .rope-body { stroke: #567b73; }
+  .cord-system--newyork .rope-braid { stroke: #ced9b4; }
+  .cord-system--newyork .cord-tassel { filter: hue-rotate(72deg) saturate(.6) drop-shadow(2px 2px 1px #163d3926); }
+  .book[data-scene="newyork"] .cord-system--newyork .cord-label { font-family: "Oswald", Arial, sans-serif; letter-spacing: .05em; color: #d9e4ed; }
+  .book[data-scene="newyork"] .cord-system--newyork .cord-action { color: #9db2c1; }
+  .book[data-scene="newyork"] .cord-system--newyork .cord-anchor { background: linear-gradient(90deg, #334857, #b6c7d3 45%, #334857); border-color: #627c8e; }
+  .book[data-scene="newyork"] .cord-system--newyork .rope-body { stroke: #6f8c9e; }
+  .book[data-scene="newyork"] .cord-system--newyork .rope-braid { stroke: #cedae3; }
+  .book[data-scene="newyork"] .cord-system--newyork .cord-tassel { filter: grayscale(1) drop-shadow(2px 2px 1px #0004); }
+  @media (width < 1100px) { .liberty-scene { block-size: 400px; } .newyork-model { inline-size: 1000px; max-inline-size: none; inset-inline-start: 50%; translate: -50% 0; } }
+  @media (prefers-reduced-motion: reduce) { .liberty-ripples, .torch-flame { animation: none; } .newyork-rain { display: none; } }
+  @media print { .newyork-rain { display: none; } }
+  @media (width < 700px) {
+    .intro--newyork { padding: 64px 43px 0; }
+    .newyork-medallion { inline-size: 48px; }
+    .intro--newyork .welcome { margin-block: 14px 16px; font-size: 9px; letter-spacing: .2em; }
+    .intro--newyork .welcome::before, .intro--newyork .welcome::after { inline-size: 14px; }
+    .intro--newyork h2 { font-size: clamp(45px, 13.5cqw, 76px); }
+    .newyork-copy { font-size: 16px; margin-block-start: 16px; line-height: 1.65; }
+    .newyork-rule { inline-size: 140px; margin-block-start: 16px; }
+    .newyork-header-mark { inline-size: 28px; }
+    .newyork-rain { inset-inline: 34px; inline-size: calc(100% - 68px); }
+    .liberty-scene { inset-inline: 30px; block-size: 370px; }
+    .newyork-model { inline-size: 1000px; max-inline-size: none; inset-inline-start: 50%; translate: -50% 0; }
+  }
+}
