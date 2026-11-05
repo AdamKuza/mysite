@@ -8,19 +8,19 @@ if ($markup -notmatch '<link rel="stylesheet" href="styles.css">' -or $markup -n
 $css = [IO.File]::ReadAllText((Join-Path $PSScriptRoot 'styles.css'))
 $js = [IO.File]::ReadAllText((Join-Path $PSScriptRoot 'app.js'))
 if ($css -match '__[A-Z_]+__|data:font|url\(["'']?https?://' -or $js.Length -lt 1000) { throw 'Invalid CSS or JavaScript output.' }
-foreach ($font in @('ElMessiri-VF.ttf', 'Ponomar-Regular.ttf', 'Oswald-VF.ttf')) {
+foreach ($font in @('ElMessiri-VF.ttf', 'Ponomar-Regular.ttf', 'Oswald-VF.ttf', 'Rubik-VF.ttf')) {
   if (-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot "src/fonts/$font"))) { throw "Missing font: $font" }
 }
-if (-not $markup.Contains('Живу въ') -or -not $markup.Contains('Москвѣ')) { throw 'Moscow residence copy is missing.' }
+if (-not $markup.Contains('Живу в') -or -not $markup.Contains('Москве')) { throw 'Moscow residence copy is missing.' }
 $moscow = [regex]::Match($markup, '<section id="moscow-scene"[\s\S]*?</section>').Value
 if ($moscow -match 'class="sea"') { throw 'Moscow must not contain a water layer.' }
 if ([regex]::Matches($markup,'<svg class="sea"').Count -ne 1) { throw 'Expected one water layer, only in Petersburg.' }
-if ([regex]::Matches($markup,'class="pull-cord"').Count -ne 5) { throw 'Expected four navigation cords and one secret cord.' }
-if ([regex]::Matches($markup,'class="site scene ').Count -ne 5) { throw 'Expected four main scenes and one secret scene.' }
-if (-not $markup.Contains('Исповѣдую исламъ<br>суннитскаго толку.') -or -not $markup.Contains('Въ Мекку')) { throw 'Mecca biography or cord is missing.' }
+if ([regex]::Matches($markup,'class="pull-cord"').Count -ne 6) { throw 'Expected five navigation cords and one secret cord.' }
+if ([regex]::Matches($markup,'class="site scene ').Count -ne 6) { throw 'Expected five main scenes and one secret scene.' }
+if (-not $markup.Contains('Исповедую ислам<br>суннитского толка.') -or -not $markup.Contains('В Мекку')) { throw 'Mecca biography or cord is missing.' }
 $mecca = [regex]::Match($markup, '<section id="mecca-scene"[\s\S]*?</section>').Value
 if (-not $mecca.Contains('class="mecca-model"') -or $mecca -match 'class="sea"|liberty-ripples') { throw 'Expected Kaaba and a dry courtyard in Mecca.' }
-if (-not $markup.Contains('Знаю американскій англійскій.') -or -not $markup.Contains('Мечтаю слетать въ Нью-Іоркъ.')) { throw 'New York biography copy is missing.' }
+if (-not $markup.Contains('Знаю американский английский.') -or -not $markup.Contains('Мечтаю слетать в Нью-Йорк.')) { throw 'New York biography copy is missing.' }
 if ($markup -match 'ny-vehicle|ny-traffic|times-square|ny-reference') { throw 'Removed Times Square content remains.' }
 if (-not $markup.Contains('class="liberty-monument"')) { throw 'Statue of Liberty is missing.' }
 $newYorkSvg = [IO.File]::ReadAllText((Join-Path $PSScriptRoot 'src\newyork.svg'))

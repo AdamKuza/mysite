@@ -7,9 +7,9 @@
   const scenes = [...book.querySelectorAll('.scene')];
   const cords = [...book.querySelectorAll('.pull-cord')];
 /* Порядок сцен и назначения верёвок задаются отдельно: верёвка не меняет свой маршрут при переходе. */
-  const sceneNames = ['petersburg', 'moscow', 'newyork', 'mecca', 'safari'];
-  const destinations = ['Въ Москву', 'Въ Петербургъ', 'Въ Нью-Іоркъ', 'Въ Мекку', 'Въ тайную комнату'];
-  const cordTargets = [1, 0, 2, 3, 4];
+  const sceneNames = ['petersburg', 'moscow', 'newyork', 'mecca', 'safari', 'israel'];
+  const destinations = ['В Москву', 'В Петербург', 'В Нью-Йорк', 'В Мекку', 'В тайную комнату', 'В Израиль'];
+  const cordTargets = [1, 0, 2, 3, 4, 5];
   const badge = book.querySelector('.compass-trigger');
   let badgeClicks = 0;
   let secretUnlocked = false;
@@ -102,7 +102,7 @@
     const hero = scenes[scene].querySelector('.hero');
     const width = hero?.clientWidth || innerWidth;
     const bottom = (hero?.offsetTop || 0) + (hero?.clientHeight || innerHeight);
-    cords.slice(0, 4).forEach(cord => {
+    cords.filter((_, index) => index !== 4).forEach(cord => {
       const system = cord.closest('.cord-system');
       const left = system.offsetLeft || 0;
       const right = left + system.clientWidth / 2 > width / 2;
@@ -118,7 +118,7 @@
     const amount = incoming ? 1 - open : close;
     const scene = incoming ? target : current;
     const sceneOpacity = incoming ? phase(progress, .43, .68) : 1 - phase(progress, .34, .58);
-    for (const cord of cords.slice(0, 4)) {
+    for (const cord of cords.filter((_, index) => index !== 4)) {
       const system = cord.closest('.cord-system');
       const record = cordFrames.get(system);
       const delay = scene === 0 ? .18 : .06;
@@ -152,7 +152,7 @@
     const rail = scenes[scene].querySelector(scene === 3 ? '#mecca-cord-rail' : '#kremlin-cord-rail');
     if (!frameHero?.clientWidth || typeof rail?.getTotalLength !== 'function') { cacheCordFrames(scene); return; }
     const total = rail.getTotalLength();
-    for (const cord of cords.slice(0, 4)) {
+    for (const cord of cords.filter((_, index) => index !== 4)) {
       const system = cord.closest('.cord-system');
       const x = (system.offsetLeft + system.clientWidth / 2 - frameHero.offsetLeft) / frameHero.clientWidth * 1200;
       // The guide follows the stone arch from left to right. Find its exact
@@ -197,7 +197,7 @@
     current = target; progress = 0; turning = false;
     measure(); updateCord();
     book.dispatchEvent(new Event('book:turnend'));
-    status.textContent = ['Открытъ Петербургъ. Адамъ Кузнецовъ.', 'Живу въ Москвѣ.', 'Нью-Іоркъ. Знаю американскій англійскій. Мечтаю слетать въ Нью-Іоркъ.', 'Мекка. Исповѣдую исламъ суннитскаго толку.', 'Я ненавижу WebKit.'][current];
+    status.textContent = ['Открыт Петербург. Адам Кузнецов.', 'Живу в Москве.', 'Нью-Йорк. Знаю американский английский. Мечтаю слетать в Нью-Йорк.', 'Мекка. Исповедую ислам суннитского толка.', 'Я ненавижу WebKit.', 'Израиль. Хочется слетать в Иерусалим и Тель-Авив.'][current];
   }
 
 /* Во время перелистывания повторный ввод блокируется. При уменьшении движения переход выполняется сразу. */
