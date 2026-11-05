@@ -1,0 +1,57 @@
+name: Publish main and beta
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Get main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-site
+
+      - name: Get beta
+        uses: actions/checkout@v4
+        with:
+          ref: beta
+          path: beta-site
+
+      - name: Prepare both versions
+        run: |
+          mkdir -p "$RUNNER_TEMP/pages/beta"
+          rsync -a --exclude='.git/' --exclude='.github/' \
+            main-site/ "$RUNNER_TEMP/pages/"
+          rsync -a --exclude='.git/' --exclude='.github/' \
+            beta-site/ "$RUNNER_TEMP/pages/beta/"
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/pages
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5

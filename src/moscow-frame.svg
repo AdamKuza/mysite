@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="moscow-frame-art" viewBox="0 0 1200 1000" preserveAspectRatio="none">
+  <defs>
+    <path id="kremlin-cord-rail" d="M126 277Q126 204 221 204H356Q469 204 600 98Q731 204 844 204H979Q1074 204 1074 277"/>
+    <mask id="kremlin-frame-opening" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="1000">
+      <rect width="1200" height="1000" fill="white"/>
+      <path d="M126 1000V277Q126 204 221 204H356Q469 204 600 98Q731 204 844 204H979Q1074 204 1074 277V1000Z" fill="black"/>
+    </mask>
+    <pattern id="kremlin-frame-bricks" width="74" height="30" patternUnits="userSpaceOnUse">
+      <path d="M0 0H74M0 15H74M0 30H74M37 0V15M0 15V30M74 15V30" fill="none" stroke="var(--stone)" stroke-width=".7" opacity=".4"/>
+      <path d="M2 2H35M39 17H71" fill="none" stroke="var(--paper-light)" stroke-width=".35" opacity=".16"/>
+    </pattern>
+    <pattern id="kremlin-frame-merlons" width="72" height="68" patternUnits="userSpaceOnUse">
+      <path d="M10 68V23H18V2L30 12 42 2V23H50V68Z" fill="var(--brick)" stroke="var(--ink)" stroke-width="1"/>
+      <path d="M17 52H43M18 60H50M19 29V42M27 16V28M40 28V42" fill="none" stroke="var(--stone)" stroke-width=".8" opacity=".45"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="1000" fill="var(--brick)" mask="url(#kremlin-frame-opening)"/>
+  <rect width="1200" height="1000" fill="url(#kremlin-frame-bricks)" mask="url(#kremlin-frame-opening)"/>
+  <rect width="1200" height="68" fill="var(--paper)"/>
+  <rect width="1200" height="68" fill="url(#kremlin-frame-merlons)"/>
+  <path d="M0 69H1200M0 76H1200M0 84H1200" fill="none" stroke="var(--stone)" stroke-width="2"/>
+  <path d="M126 1000V277Q126 204 221 204H356Q469 204 600 98Q731 204 844 204H979Q1074 204 1074 277V1000Z" fill="none" stroke="var(--stone)" stroke-width="13"/>
+  <path d="M139 1000V280Q139 217 223 217H358Q475 217 600 115Q725 217 842 217H977Q1061 217 1061 280V1000" fill="none" stroke="var(--gold)" stroke-width="1"/>
+  <path d="M113 1000V274Q113 191 219 191H353Q463 191 600 81Q737 191 847 191H981Q1087 191 1087 274V1000" fill="none" stroke="var(--ink)" stroke-width="1.2"/>
+  <g fill="var(--stone)" stroke="var(--ink)" stroke-width=".6">
+    <path d="M27 240H98V249H27ZM23 254H102V261H23ZM27 664H98V675H27ZM23 681H102V689H23ZM27 973H98V986H27Z"/>
+    <path d="M1102 240H1173V249H1102ZM1098 254H1177V261H1098ZM1102 664H1173V675H1102ZM1098 681H1177V689H1098ZM1102 973H1173V986H1102Z"/>
+  </g>
+  <g fill="var(--ink)" stroke="var(--stone)" stroke-width="1.2">
+    <path d="M49 422V330Q62 311 76 330V422ZM1124 422V330Q1138 311 1151 330V422Z"/>
+    <path d="M51 852V770Q62 754 74 770V852ZM1126 852V770Q1138 754 1149 770V852Z"/>
+  </g>
+  <g stroke="var(--brick)" stroke-width="3" fill="none"><path d="M62 333V416M1138 333V416M62 771V846M1138 771V846"/></g>
+  <path d="M9 85V1000M1191 85V1000" stroke="var(--ink)" stroke-width="2" fill="none"/>
+</svg>

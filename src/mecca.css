@@ -1,0 +1,79 @@
+/* Тема Мекки: кириллический El Messiri, зелёная палитра и геометрическая арка вместо колонн. Шрифт загружается локально. */
+@font-face {
+  font-family: "El Messiri";
+  src: url("__MECCA_FONT__") format("truetype");
+  font-style: normal; font-weight: 400 700; font-display: swap;
+}
+@layer book {
+  .scene--mecca {
+    --ink: #254f40; --paper: #f4ecd9; --paper-light: #fff9e9;
+    --gold: #b79958; --sea: #103f35; --stone: #d8c9a4;
+    font-family: "El Messiri", "Palatino Linotype", Palatino, serif;
+    color: var(--ink); background: var(--paper);
+  }
+  .scene--mecca .masthead, .scene--mecca .site-footer {
+    background: var(--sea); color: var(--paper); border-color: var(--gold);
+  }
+  .scene--mecca .site-label { letter-spacing: .22em; }
+  .scene--mecca .small-seal { border-radius: 0; border-color: var(--gold); outline-color: var(--gold); }
+  .mecca-header-star { inline-size: 42px; color: var(--gold); }
+  .hero--mecca { background: var(--sea); }
+/* Рамка растягивается по области сцены. Контур крепления верёвок хранится внутри mecca-frame.svg. */
+  .mecca-frame { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .mecca-frame-art { inline-size: 100%; block-size: 100%; }
+  .intro--mecca { padding-block-start: 55px; }
+  .mecca-medallion { inline-size: 88px; margin-inline: auto; color: var(--gold); }
+  .mecca-medallion svg { inline-size: 100%; block-size: auto; }
+  .mecca-medallion text { font-family: "El Messiri", serif; font-size: 26px; fill: currentColor; }
+  .intro--mecca .welcome { margin-block: 18px 5px; font-size: 11px; letter-spacing: .35em; }
+  .intro--mecca .welcome::before, .intro--mecca .welcome::after { inline-size: 45px; }
+  .intro--mecca h2 {
+    font-family: "El Messiri", "Palatino Linotype", serif;
+    font-size: clamp(88px, 10cqw, 150px); font-weight: 500;
+    font-variant-caps: normal; letter-spacing: -.045em; line-height: 1.25;
+  }
+  .mecca-copy { margin: 8px auto 0; max-inline-size: 30ch; font-size: clamp(20px, 2.1cqw, 30px); line-height: 1.6; }
+  .mecca-rule { inline-size: 180px; block-size: 30px; margin: 19px auto 0; color: var(--gold); }
+  .book[data-scene="mecca"] .cord-system--mecca .pull-cord { font-family: "El Messiri", "Palatino Linotype", serif; }
+  .mecca-scene { position: absolute; inset: auto 9.5% 0; block-size: clamp(430px, calc(100% - 555px), 570px); z-index: 1; pointer-events: none; }
+  .mecca-model { inline-size: 100%; block-size: 100%; display: block; }
+/* Эффекты воздуха ограничены нижней частью сцены; это песок и жар, а не осадки на всём экране. */
+  .mecca-air {
+    position: absolute; inset: auto 12.5% 0; z-index: 2;
+    inline-size: 75%; block-size: 240px; pointer-events: none;
+    overflow: hidden; color: var(--ink);
+  }
+  .mecca-air[hidden] { display: none; }
+  .mecca-air path { fill: none; stroke: currentColor; stroke-width: 1.15; stroke-linecap: round; }
+  .scene--mecca[data-mecca-air-running="true"] :is(.mecca-ground, .mecca-distance) { filter: url(#mecca-ground-heat); }
+  .book-motion .cord-system--mecca { inset-inline-end: calc(14% + 110px); }
+  .cord-system--mecca .cord-anchor { background: linear-gradient(90deg, #15523d, #8fbe91 45%, #15523d); border-color: #275f45; }
+  .cord-system--mecca .rope-body { stroke: #27754e; }
+  .cord-system--mecca .rope-braid { stroke: #a8d29a; }
+  .cord-system--mecca .cord-action { color: #36734f; }
+  .cord-system--mecca .cord-destination { color: #1a6140; }
+  @media (width < 700px) {
+    .intro--mecca { padding: 34px 39px 0; }
+    .mecca-medallion { inline-size: 72px; }
+    .intro--mecca .welcome { margin-block: 16px 4px; font-size: 9px; }
+    .intro--mecca h2 { font-size: clamp(66px, 20cqw, 100px); }
+    .mecca-copy { font-size: 19px; max-inline-size: 23ch; }
+    .mecca-rule { inline-size: 140px; margin-block-start: 12px; }
+    .mecca-header-star { inline-size: 28px; }
+    .mecca-scene { inset-inline: 28px; block-size: 390px; }
+    .mecca-model { inline-size: min(600px, 150vw); max-inline-size: none; position: absolute; inset-inline-start: 50%; translate: -50% 0; }
+    .mecca-air { inset-inline: 40px; inline-size: calc(100% - 80px); block-size: 180px; }
+    .book-motion .cord-system--mecca { inset-inline-end: 96px; --rope-length: 42px; }
+    .book[data-scene="mecca"] .cord-system--mecca .cord-label { font-size: 8px; letter-spacing: 0; margin-block-start: 4px; }
+    .book[data-scene="mecca"] .cord-system--mecca .cord-action { font-size: 8px; }
+    .book[data-scene="mecca"] .cord-system--mecca .cord-destination { white-space: nowrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mecca-air { display: none; }
+    .scene--mecca :is(.mecca-ground, .mecca-distance) { filter: none; }
+  }
+  @media print {
+    .mecca-air { display: none; }
+    .scene--mecca :is(.mecca-ground, .mecca-distance) { filter: none; }
+  }
+}

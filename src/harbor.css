@@ -1,0 +1,45 @@
+/* Движение гавани отделено от сгиба страницы: внешняя оболочка складывается, внутренние SVG-группы продолжают маршрут, когда сцена активна. */
+@layer harbor-motion;
+@layer harbor-motion {
+  .water-drift, .water-ripple, .ship-voyage, .ship-bobbing, .boat-voyage, .boat-bobbing {
+    transform-box: view-box;
+    transform-origin: 50% 88%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .water-drift { animation: water-current 65s linear infinite; }
+    .water-ripple { animation: water-ripple 7s ease-in-out infinite alternate; }
+    .ship-voyage { animation: vessel-passage var(--voyage-duration, 100s) linear infinite; animation-delay: var(--voyage-delay, 0s); }
+    .boat-voyage { animation: vessel-passage var(--voyage-duration, 140s) linear infinite; animation-delay: var(--voyage-delay, 0s); }
+    .ship-bobbing { animation: ship-rock 5.4s ease-in-out infinite; }
+    .boat-bobbing { animation: boat-rock 6.1s ease-in-out infinite; }
+    .scene--petersburg .water-drift, .scene--petersburg .water-ripple,
+    .scene--petersburg .ship-voyage, .scene--petersburg .ship-bobbing,
+    .scene--petersburg .boat-voyage, .scene--petersburg .boat-bobbing { animation-play-state: paused; }
+    .scene--petersburg[data-harbor-running="true"] .water-drift,
+    .scene--petersburg[data-harbor-running="true"] .water-ripple,
+    .scene--petersburg[data-harbor-running="true"] .ship-voyage,
+    .scene--petersburg[data-harbor-running="true"] .ship-bobbing,
+    .scene--petersburg[data-harbor-running="true"] .boat-voyage,
+    .scene--petersburg[data-harbor-running="true"] .boat-bobbing { animation-play-state: running; }
+    @keyframes water-current { to { transform: translateX(-1200px); } }
+    @keyframes water-ripple { from { transform: translateY(-1.2px); } to { transform: translateY(1.2px); } }
+/* Границы маршрута вычисляет harbor.js с учётом текущего масштаба судна. */
+    @keyframes vessel-passage {
+      from { transform: translateX(var(--voyage-start, 0px)); }
+      to { transform: translateX(var(--voyage-end, 0px)); }
+    }
+    @keyframes ship-rock {
+      0%, 100% { transform: translateY(0) rotate(-.35deg); }
+      50% { transform: translateY(2.4px) rotate(.35deg); }
+    }
+    @keyframes boat-rock {
+      0%, 100% { transform: translateY(.7px) rotate(.55deg); }
+      50% { transform: translateY(-.7px) rotate(-.55deg); }
+    }
+  }
+  @media print {
+    .water-drift, .water-ripple, .ship-voyage, .ship-bobbing, .boat-voyage, .boat-bobbing {
+      animation: none !important; transform: none !important;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+/* Цвет и размер штрихов снежинок Москвы. Частицы создаёт общий генератор weather.js. */
+@layer book {
+  .scene--moscow { position: relative; }
+  .moscow-snow {
+    position: absolute; inset: 0 12.5%; z-index: 2;
+    inline-size: 75%; block-size: 100%;
+    pointer-events: none; overflow: hidden; color: var(--ink);
+  }
+  .moscow-snow[hidden] { display: none; }
+  .moscow-snow path { stroke: currentColor; fill: var(--paper-light); stroke-width: 1; stroke-linecap: round; }
+  @media (width < 700px) {
+    .moscow-snow { inset-inline: 34px; inline-size: calc(100% - 68px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .moscow-snow { display: none; } }
+  @media print { .moscow-snow { display: none; } }
+}

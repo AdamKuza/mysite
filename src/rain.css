@@ -1,0 +1,16 @@
+/* Цвет и границы дождя Петербурга. Общая анимация слоёв описана в weather.css. */
+@layer book {
+  .scene--petersburg { position: relative; }
+  .petersburg-rain {
+    position: absolute; inset: 0 12.5%; z-index: 2;
+    inline-size: 75%; block-size: 100%;
+    pointer-events: none; overflow: hidden; color: var(--ink);
+  }
+  .petersburg-rain[hidden] { display: none; }
+  .petersburg-rain path { fill: none; stroke: currentColor; stroke-width: .9; stroke-linecap: round; }
+  @media (width < 700px) {
+    .petersburg-rain { inset-inline: 34px; inline-size: calc(100% - 68px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .petersburg-rain { display: none; } }
+  @media print { .petersburg-rain { display: none; } }
+}

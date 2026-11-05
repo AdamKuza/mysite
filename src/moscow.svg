@@ -1,0 +1,78 @@
+<svg class="moscow-skyline" data-fold="paper" data-delay=".16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 330" aria-hidden="true">
+  <defs>
+    <pattern id="moscow-bricks" width="14" height="9" patternUnits="userSpaceOnUse">
+      <path d="M0 0H14M0 9H14M7 0V9M0 4.5H14M0 0V4.5M14 4.5V9" stroke="currentColor" stroke-width=".35" fill="none" opacity=".32"/>
+    </pattern>
+    <pattern id="moscow-roof" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(32)">
+      <path d="M0 0V7" stroke="currentColor" stroke-width=".65" opacity=".45"/>
+    </pattern>
+    <pattern id="moscow-merlons" width="20" height="28" patternUnits="userSpaceOnUse">
+      <path d="M0 28V9H4V1L10 7 16 1V9H20V28Z" fill="var(--paper)" stroke="currentColor" stroke-width=".8"/>
+    </pattern>
+    <pattern id="moscow-windows" width="17" height="22" patternUnits="userSpaceOnUse">
+      <path d="M5 18V8Q8.5 2 12 8V18ZM4 20H13M8.5 6V18" fill="none" stroke="currentColor" stroke-width=".55"/>
+    </pattern>
+    <symbol id="moscow-cross" viewBox="0 0 20 35">
+      <path d="M10 0V35M5 8H15M2 16H18M5 27l10 4" stroke="currentColor" stroke-width="1" fill="none"/>
+    </symbol>
+    <symbol id="moscow-onion" viewBox="0 0 58 92">
+      <use href="#moscow-cross" x="20" y="0" width="18" height="28"/>
+      <path d="M29 24C24 42 4 43 5 59C5 71 18 78 29 78C40 78 53 71 53 59C54 43 34 42 29 24ZM17 78H41V87H17Z" fill="var(--paper)" stroke="currentColor" stroke-width="1"/>
+      <path d="M29 27C14 54 10 56 29 77C48 56 44 54 29 27ZM29 32V76M10 56Q29 48 48 56M10 65Q29 56 48 65" fill="none" stroke="currentColor" stroke-width=".65"/>
+    </symbol>
+    <symbol id="moscow-small-tower" viewBox="0 0 80 200">
+      <g fill="var(--paper)" stroke="currentColor" stroke-width=".9">
+        <path d="M12 200V129H68V200ZM17 130V103H63V130ZM21 103V84H59V103ZM25 84 40 22 55 84ZM37 22V9H43V22Z"/>
+        <path d="M25 84 40 22 55 84Z" fill="url(#moscow-roof)"/>
+        <path d="M8 132H72M12 137H68M17 107H63M21 88H59M28 124V112Q32 106 36 112V124Zm16 0V112Q48 106 52 112V124ZM22 194v-44h36v44Z" fill="none"/>
+        <path d="M30 198v-27q10-14 20 0v27ZM25 155h30M25 163h30M28 89v14m12-14v14m12-14v14M40 9V0m-4 5h8" fill="none" stroke-width=".65"/>
+      </g>
+    </symbol>
+  </defs>
+  <g stroke="currentColor" stroke-width=".8" stroke-linejoin="round">
+    <!-- Distant roofline is a separate folded-paper silhouette. -->
+    <g opacity=".45" fill="var(--paper)">
+      <path d="M0 265V225H40V208H115V228H156V217H219V265ZM382 265V209H468V187H528V214H575V196H674V218H745V265ZM1000 265V210H1045V192H1105V217H1168V201H1200V265Z"/>
+      <path d="M0 224h40l15-16h45l15 16m42-7 31-15 31 15m164-8 43-17 43 17m0-22 30-18 30 18m47 9 50-17 49 17m327-4 30-15 30 15m63 9 16-16h16l16 16" fill="none"/>
+      <path d="M8 233H211V260H8ZM392 218H738V258H392ZM1009 226H1200V260H1009Z" fill="url(#moscow-windows)" stroke="none"/>
+    </g>
+    <path d="M0 271H1200V312H0Z" fill="var(--paper)"/>
+    <path d="M0 271H1200V312H0Z" fill="url(#moscow-bricks)"/>
+    <path d="M0 252H1200V280H0Z" fill="url(#moscow-merlons)" stroke="none"/>
+    <path d="M0 280H1200M0 284H1200M0 309H1200M0 315H1200M0 321H1200" fill="none"/>
+    <use href="#moscow-small-tower" x="55" y="113" width="80" height="200"/>
+    <use href="#moscow-small-tower" x="486" y="106" width="83" height="207"/>
+    <use href="#moscow-small-tower" x="1092" y="133" width="72" height="180"/>
+    <!-- Clock tower: individual stone tiers, roof and clock hands. -->
+    <g class="moscow-clock-tower" fill="var(--paper)">
+      <path d="M260 313V201H350V313ZM269 201V135H341V201ZM274 135V112H336V135ZM281 112V94H329V112ZM287 94 305 32 323 94ZM301 32V17H309V32Z"/>
+      <path d="M260 210H350V313H260Z" fill="url(#moscow-bricks)"/>
+      <path d="M287 94 305 32 323 94Z" fill="url(#moscow-roof)"/>
+      <path d="M254 202H356M259 207H351M266 136H344M274 130H336M278 113H332M285 95H325M285 101V111m10-10v10m10-10v10m10-10v10m10-10v10M305 17V3m-4 7h8" fill="none"/>
+      <circle cx="305" cy="164" r="20"/><circle cx="305" cy="164" r="17" fill="none"/>
+      <path d="M305 150v14l9 6M305 146v4m18 14h-4m-14 18v-4m-18-14h4m2-12 3 3m21-3-3 3m3 21-3-3m-21 3 3-3" fill="none"/>
+      <path d="M286 312v-53q19-31 38 0v53ZM292 311v-48q13-23 26 0v48Z"/>
+      <path d="M271 220v23h10v-23ZM329 220v23h10v-23ZM277 145v42m56-42v42M264 249H346M269 253H341" fill="none"/>
+      <path d="M277 122v-6m11 6v-6m11 6v-6m11 6v-6m11 6v-6m11 6v-6" fill="none"/>
+    </g>
+    <!-- Cathedral domes, drums, arches and ornamental tents. -->
+    <g class="moscow-cathedrals" fill="var(--paper)">
+      <path d="M734 303V221H980V303ZM762 221V182H794V221ZM818 221V153H864V221ZM895 221V176H933V221ZM949 238V203H979V238Z"/>
+      <path d="M804 155 841 64 878 155ZM814 154H868V165H814ZM823 166H859V221H823Z"/>
+      <path d="M804 155 841 64 878 155Z" fill="url(#moscow-roof)"/>
+      <use href="#moscow-onion" x="755" y="107" width="47" height="75"/>
+      <use href="#moscow-onion" x="885" y="90" width="58" height="92"/>
+      <use href="#moscow-onion" x="943" y="145" width="42" height="67"/>
+      <use href="#moscow-onion" x="817" y="15" width="48" height="76"/>
+      <path d="M750 303V263q16-23 32 0v40Zm56 0v-54q19-28 38 0v54Zm58 0v-41q16-22 32 0v41Zm54 0v-39q15-21 30 0v39Z"/>
+      <path d="M736 229H979M738 235H977M734 297H980M743 293V244m47 49v-49m8 49v-49m53 49v-49m8 49v-49m45 49v-49m9 49v-49m43 49v-49M768 216v-26h7v26m7 0v-26h7v26M902 215v-29h8v29m9 0v-29h8v29M832 211v-33q9-12 18 0v33Z" fill="none"/>
+      <path d="m814 139 27-63 27 63m-45-7 18-44 18 44m-28-13 10-24 10 24M809 147h64M819 156h44M820 169h42" fill="none" stroke-width=".6"/>
+      <path d="M740 245q11-14 22 0q11-14 22 0m22-9q10-14 20 0q10-14 20 0m18 7q10-13 20 0q10-13 20 0m14 2q10-12 20 0q10-12 20 0" fill="none"/>
+      <path d="M753 276v15m8-23v23m9-23v23M817 261v30m9-35v35m9-30v30M875 271v20m9-25v25m9-20v20M927 274v17m9-22v22m9-17v17" fill="none" stroke-width=".55"/>
+    </g>
+    <g fill="none" stroke-width=".55" opacity=".5">
+      <path d="M25 288v20m19-20v20m19-20v20m95-20v20m19-20v20m19-20v20m19-20v20m19-20v20m136-20v20m19-20v20m19-20v20m19-20v20m19-20v20m123-20v20m19-20v20m19-20v20m19-20v20m19-20v20m19-20v20m19-20v20m19-20v20m19-20v20m308-20v20m19-20v20m19-20v20m19-20v20"/>
+      <path d="M0 326H1200"/>
+    </g>
+  </g>
+</svg>

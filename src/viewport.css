@@ -1,0 +1,99 @@
+/* Последний слой компоновки: все сцены должны помещаться в окно без прокрутки. Менять размеры безопаснее здесь, а не в базовых стилях. */
+@layer viewport;
+@layer viewport {
+/* dvh учитывает текущую высоту окна, в том числе изменение панелей мобильного браузера. */
+  html.book-motion, .book-motion body { block-size: 100dvh; min-block-size: 0; overflow: hidden; }
+  .book-motion .book, .book-motion .book-stage { block-size: 100dvh; }
+  .book-motion .scene { grid-template-rows: auto minmax(0, 1fr) auto; }
+  .book-motion .masthead { min-block-size: clamp(36px, 7dvh, 76px); padding-block: 6px; }
+  .book-motion .site-footer { padding-block: clamp(5px, 1.4dvh, 16px); font-size: clamp(9px, 1.4dvh, 13px); }
+/* Контейнер задаёт единицы cqw и cqh: подписи и иллюстрации масштабируются по доступной области между шапкой и подвалом. */
+  .book-motion .hero { container-type: size; min-block-size: 0; }
+  .book-motion .intro { padding-block-start: 3cqh; }
+  .book-motion .crest { inline-size: clamp(65px, 18cqh, 190px); }
+  .book-motion .welcome { font-size: clamp(8px, 1.7cqh, 13px); margin-block: 1cqh 2cqh; }
+  .book-motion h1 { font-size: min(8.5cqw, 12.5cqh); }
+  .book-motion .name-rule { block-size: 3.5cqh; margin-block-start: 2cqh; }
+  .book-motion .harbor { block-size: 42cqh; }
+  .book-motion .city { block-size: 27cqh; inset-block-end: 6cqh; }
+  .book-motion .sea { block-size: 13cqh; }
+  .book-motion .ship { inline-size: min(36cqw, 39cqh); max-inline-size: none; }
+  .book-motion .scene--moscow .intro { padding-block-start: var(--moscow-crest-top); }
+  .book-motion .scene--moscow .moscow-medallion { inline-size: min(68px, 9cqh); }
+  .book-motion .scene--moscow h2 { font-size: min(10cqw, 17cqh); }
+  .book-motion .harbor--moscow { block-size: 36cqh; }
+  .book-motion .moscow-skyline { max-block-size: 34cqh; }
+  .book-motion .scene--newyork .intro { padding-block-start: 9cqh; }
+  .book-motion .scene--newyork .newyork-medallion { inline-size: min(62px, 8cqh); }
+  .book-motion .scene--newyork h2 { font-size: min(9.5cqw, 15cqh); }
+  .book-motion .scene--newyork .welcome { margin-block: 1.5cqh; }
+  .book-motion .scene--newyork .newyork-copy { font-size: clamp(12px, 3cqh, 26px); margin-block-start: 2cqh; }
+  .book-motion .newyork-rule, .book-motion .mecca-rule { block-size: 2.5cqh; margin-block-start: 2cqh; }
+  .book-motion .liberty-scene { block-size: 42cqh; }
+  .book-motion .scene--mecca .intro { padding-block-start: 5cqh; }
+  .book-motion .scene--mecca .mecca-medallion { inline-size: min(88px, 10cqh); }
+  .book-motion .scene--mecca h2 { font-size: min(10cqw, 16cqh); }
+  .book-motion .scene--mecca .mecca-copy { font-size: clamp(12px, 3cqh, 26px); margin-block-start: 1cqh; }
+  .book-motion .mecca-scene { block-size: 42cqh; }
+  .book-motion .cord-system { inset-block-start: var(--cord-top, 76px); --rope-length: clamp(40px, 15dvh, 130px); }
+/* Невидимые сцены не продолжают CSS-анимации; во время сгиба декоративные эффекты тоже приостанавливаются. */
+  .book-motion .scene[data-rendering="false"] *, .book-motion .book[data-turning="true"] .scene *,
+  .book-motion body.page-hidden .scene * { animation-play-state: paused !important; }
+  .book-motion .cord-system--petersburg { inset-inline-end: auto; inset-inline-start: calc(14% + 110px); }
+  .cord-system--petersburg .cord-anchor { background: linear-gradient(90deg, #0a535b, #a7d7d3 45%, #0a535b); border-color: #346d72; }
+  .cord-system--petersburg .rope-body { stroke: #347b83; }
+  .cord-system--petersburg .rope-braid { stroke: #bbe1d9; }
+  .cord-system--petersburg .cord-tassel { filter: hue-rotate(125deg) saturate(.5); }
+/* Верёвка текущей сцены остаётся на месте, но выглядит приглушённой и не принимает нажатия. */
+  .cord-system.is-current .cord-feed { opacity: .3; }
+  .cord-system.is-current .pull-cord { pointer-events: none; cursor: default; }
+  .book[data-scene="newyork"] .cord-label, .book[data-scene="newyork"] .cord-action, .book[data-scene="newyork"] .cord-destination { color: #cadce6; }
+  @media (width < 700px) {
+    .book-motion .scene--petersburg .crest { inline-size: min(32cqw, 18cqh); }
+    .book-motion .scene--petersburg .welcome { font-size: 9px; letter-spacing: .14em; }
+    .book-motion h1 { font-size: min(12cqw, 12.5cqh); }
+    .book-motion .ship { inline-size: min(80cqw, 40cqh); }
+    .book-motion .scene--newyork h2 { font-size: min(13.5cqw, 15cqh); }
+    .book-motion .scene--newyork .newyork-copy, .book-motion .scene--mecca .mecca-copy { font-size: clamp(12px, 2.4cqh, 19px); }
+    .book-motion .cord-system { --rope-length: 58px; }
+    .book-motion .cord-system--mecca { --rope-length: 42px; }
+    .book-motion .cord-system--petersburg { inset-inline-start: 96px; --rope-length: 42px; }
+    .book .cord-label { font-size: 8px; letter-spacing: 0; }
+    .book .cord-action { font-size: 8px; }
+    .book-motion .scene--moscow .intro-copy { padding-block-start: 16cqh; }
+    .book-motion .scene--moscow h2 { font-size: min(19cqw, 14cqh); }
+    .book[data-scene="moscow"] .cord-system .cord-label { margin-block-start: 6px; translate: none; }
+    .book[data-scene="moscow"] .cord-system .cord-destination { white-space: normal; }
+  }
+}
+
+@layer viewport {
+  .compass-trigger { display: grid; place-items: center; inline-size: 46px; block-size: 46px; border: 0; padding: 0; color: inherit; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .compass-trigger:focus-visible { outline: 1px dashed currentColor; outline-offset: 4px; }
+/* Секретный держатель привязывается к месту розы ветров из JavaScript и не участвует в обычной четвёрке направлений. */
+  .book-motion .cord-system--secret { --rope-length: 20px; inset-inline-start: calc(50% - 50px); inset-inline-end: auto; }
+  .cord-system--secret .cord-tassel { block-size: 38px; inline-size: 24px; }
+  .cord-system--secret .cord-label { display: none; }
+  .scene--safari { --ink: #762f29; --gold: #b18c4b; --paper: #f4eddd; }
+  .hero--safari { display: grid; place-items: center; background: linear-gradient(90deg, #762f29 0 9%, transparent 9% 91%, #762f29 91%); }
+  .safari-message { inline-size: 78%; text-align: center; }
+  .safari-message h2 { font-family: "Ponomar", "Palatino Linotype", serif; font-size: min(16cqw, 25cqh); line-height: 1.2; }
+  .safari-message h2 span:last-child { font-family: "Palatino Linotype", Georgia, serif; }
+  @media (width < 700px) { .book-motion .cord-system--secret { --rope-length: 18px; inset-inline-start: calc(50% - 32.5px); } }
+}
+
+@layer viewport {
+  .book-motion .cord-system--secret { z-index: 8; inline-size: 46px; --rope-length: 18px; }
+  .book-motion .cord-system--secret .pull-cord { inline-size: 44px; }
+  .compass-trigger .compass { inline-size: 100%; block-size: 100%; }
+  @media (width < 700px) { .compass-trigger { inline-size: 27px; block-size: 27px; } }
+}
+
+@layer viewport {
+/* Поворот держателя выполняется вместе с рамкой; обратная сторона не рисуется. */
+  .book-motion .cord-system { backface-visibility: hidden; }
+  @media (width < 700px) {
+    .book-motion .scene--mecca .intro-copy { padding-block-start: 14cqh; }
+    .book-motion .scene--mecca h2 { font-size: min(20cqw, 14cqh); }
+  }
+}

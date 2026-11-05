@@ -1,0 +1,87 @@
+<svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+  <pattern id="damask" x="0" y="0" width="72" height="112" patternUnits="userSpaceOnUse">
+    <g fill="none" stroke="currentColor" stroke-width=".8">
+      <path d="M36 0v112M0 56h72M36 7C12 23 16 39 36 48C56 39 60 23 36 7ZM36 64C12 80 16 96 36 105C56 96 60 80 36 64Z"/>
+      <path d="M36 12C34 30 19 28 25 37C31 43 36 30 36 26C36 30 42 44 47 37C53 28 38 30 36 12ZM36 68C33 87 20 84 25 95C31 101 36 86 36 82C36 86 42 101 47 95C53 84 39 87 36 68ZM0 12C20 32 20 42 0 53M72 12C52 32 52 42 72 53M0 69C20 89 20 99 0 110M72 69C52 89 52 99 72 110"/>
+      <path d="m31 53 5-6 5 6-5 6ZM-5 57l5-6 5 6-5 6Zm72 0 5-6 5 6-5 6Z" fill="currentColor"/>
+    </g>
+  </pattern>
+  <symbol id="leaf" viewBox="0 0 28 54">
+    <path d="M13 52C11 38-4 36 4 22C7 32 14 29 11 21C4 12 11 8 14 1C16 12 26 12 21 23C18 30 23 33 26 25C30 40 16 38 13 52Z" fill="var(--stone, #e8ddc6)" stroke="currentColor" stroke-width="1"/>
+    <path d="M14 8 13 50M5 25l8 10m9-11-9 16M9 16l5 8m5-9-6 15" fill="none" stroke="currentColor" stroke-width=".7"/>
+  </symbol>
+  <symbol id="scroll" viewBox="0 0 110 100">
+    <g fill="none" stroke="currentColor" stroke-linecap="round">
+      <path d="M102 91C59 99 10 77 9 49C8 26 29 18 41 29C53 40 42 57 31 51C23 47 29 38 35 43M100 88C64 84 48 69 46 52C44 30 62 23 69 9C76 32 55 39 60 54C63 66 80 72 94 70" stroke-width="2"/>
+      <path d="M98 96C54 100 0 75 4 45C9 15 42 13 51 37C59 62 23 71 19 47M99 85C69 79 55 65 55 51C55 33 73 30 69 9M88 69C89 52 74 51 81 38C87 45 93 41 94 30C105 40 91 57 95 68M55 81C42 81 25 84 16 73C31 79 37 70 30 64" stroke-width=".8"/>
+      <path d="M38 30C29 25 14 32 15 45M38 34C30 28 19 35 20 45M42 59C45 73 63 86 80 89M61 49C65 42 70 35 71 26M82 73l6-3m-17 8 7-5m-16 1 6-5m-14-2 7-3"/>
+    </g>
+    <use href="#leaf" x="49" y="48" width="22" height="42" transform="rotate(-35 60 70)"/>
+    <use href="#leaf" x="24" y="55" width="17" height="34" transform="rotate(-65 35 70)"/>
+  </symbol>
+  <symbol id="crest" viewBox="0 0 230 160">
+    <g color="currentColor">
+      <use href="#scroll" x="3" y="45" width="95" height="95"/>
+      <use href="#scroll" x="3" y="45" width="95" height="95" transform="translate(230 0) scale(-1 1)"/>
+      <ellipse cx="115" cy="91" rx="43" ry="49" fill="var(--paper, #f3eddf)" stroke="currentColor" stroke-width="1.5"/>
+      <ellipse cx="115" cy="91" rx="37" ry="43" fill="none" stroke="currentColor" stroke-width=".7"/>
+      <path d="M82 53C84 40 98 37 102 28C104 40 110 44 115 41C120 44 126 40 128 28C132 37 146 40 148 53M82 123C89 138 104 147 115 145C126 147 141 138 148 123M100 137l15 16 15-16" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <use href="#leaf" x="103" y="1" width="24" height="48"/>
+      <use href="#leaf" x="80" y="16" width="20" height="38" transform="rotate(-30 90 35)"/>
+      <use href="#leaf" x="130" y="16" width="20" height="38" transform="rotate(30 140 35)"/>
+      <path d="M89 57C69 48 75 25 63 25C60 37 70 39 68 49M141 57C161 48 155 25 167 25C170 37 160 39 162 49" fill="none" stroke="currentColor"/>
+      <path d="m108 145 7 12 7-12M115 145v12" fill="none" stroke="currentColor"/>
+    </g>
+  </symbol>
+  <symbol id="capital" viewBox="0 0 140 100">
+    <path d="M6 3h128v13H6ZM23 18h94l-9 59H32Z" fill="#ece2cd" stroke="currentColor"/>
+    <g fill="none" stroke="currentColor">
+      <path d="M47 53C18 56 1 33 17 24C34 14 49 38 33 43C24 46 21 33 30 33M93 53C122 56 139 33 123 24C106 14 91 38 107 43C116 46 119 33 110 33" stroke-width="2"/>
+      <path d="M44 48C20 50 9 33 20 28M96 48C120 50 131 33 120 28M37 77h66l6 11H31Z"/>
+    </g>
+    <use href="#leaf" x="54" y="28" width="31" height="60"/>
+    <use href="#leaf" x="29" y="42" width="25" height="44" transform="rotate(-25 40 65)"/>
+    <use href="#leaf" x="86" y="42" width="25" height="44" transform="rotate(25 100 65)"/>
+    <path d="M27 89h86v7H27Z" fill="#e9dec5" stroke="currentColor"/>
+  </symbol>
+  <symbol id="pendant" viewBox="0 0 40 300">
+    <path d="M20 8v283M20 16C-1 41 2 51 20 67C38 51 41 41 20 16ZM20 108C-1 133 2 143 20 159C38 143 41 133 20 108ZM20 200C-1 225 2 235 20 251C38 235 41 225 20 200Z" fill="none" stroke="currentColor" stroke-width="1"/>
+    <use href="#leaf" x="7" y="28" width="26" height="50"/>
+    <use href="#leaf" x="7" y="120" width="26" height="50"/>
+    <use href="#leaf" x="7" y="212" width="26" height="50"/>
+    <path d="m20 85 6 8-6 8-6-8Zm0 92 6 8-6 8-6-8Zm0 92 6 8-6 8-6-8Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="rosette" viewBox="0 0 60 60">
+    <g fill="none" stroke="currentColor">
+      <path d="M30 7C17 20 23 25 30 30C37 25 43 20 30 7ZM30 53C17 40 23 35 30 30C37 35 43 40 30 53ZM7 30C20 17 25 23 30 30C25 37 20 43 7 30ZM53 30C40 17 35 23 30 30C35 37 40 43 53 30Z"/>
+      <path d="M14 14Q13 27 30 30Q27 13 14 14ZM46 14Q33 13 30 30Q47 27 46 14ZM46 46Q47 33 30 30Q33 47 46 46ZM14 46Q27 47 30 30Q13 33 14 46Z"/>
+      <circle cx="30" cy="30" r="5" fill="var(--paper, #f3eddf)"/>
+    </g>
+  </symbol>
+  <symbol id="urn" viewBox="0 0 70 92">
+    <g fill="#eee3ce" stroke="currentColor" stroke-width="1.2">
+      <path d="M28 8Q35-4 42 8L40 15H30ZM17 19Q35 10 53 19L48 25Q66 52 43 65L40 77H30L27 65Q4 52 22 25ZM24 80h22l6 12H18Z"/>
+      <path d="M22 26h26M25 64h20M30 31Q20 47 31 62M35 29v34M40 31Q50 47 39 62M20 22h30M27 85h16" fill="none"/>
+    </g>
+  </symbol>
+  <symbol id="gable" viewBox="0 0 400 180">
+    <path d="M0 147Q166 60 370 5L379 19Q169 78 8 164Z" fill="#ece2cd" stroke="#958a70" stroke-width="1"/>
+    <path d="M3 149Q172 64 373 9M7 157Q174 75 376 16" fill="none" stroke="#fff9ed" stroke-width="3"/>
+    <path d="M14 165Q167 91 351 38L350 56Q178 106 29 178Z" fill="#d5cab2" stroke="#9c9078"/>
+    <path d="M18 168Q170 96 350 42" fill="none" stroke="#fff8e8" stroke-width="3"/>
+  </symbol>
+  <symbol id="compass" viewBox="0 0 80 80">
+    <g stroke="currentColor" stroke-width=".8">
+      <circle cx="40" cy="40" r="19" fill="none"/>
+      <path d="m40 2 6 31 27-20-20 27 25 0-31 6 20 27-27-20-6 25-1-31L7 67l20-27L2 40l31-6L13 7l27 20Z" fill="var(--paper, #f3eddf)"/>
+      <path d="M40 2v38l6-7ZM73 13 40 40l13-7ZM78 40H40l7 6ZM67 73 40 40l0 13ZM34 78l6-38-6 7ZM7 67l33-27-13 0ZM2 40h38l-7-6ZM13 7l27 33 0-13Z" fill="currentColor"/>
+    </g>
+  </symbol>
+  <symbol id="divider" viewBox="0 0 220 36">
+    <g fill="none" stroke="currentColor" stroke-width=".9">
+      <path d="M0 18h80m60 0h80M94 18c-16-18-28 10-10 8s11-12 4-8m38 0c16-18 28 10 10 8s-11-12-4-8M110 2l12 16-12 16-12-16Z"/>
+      <path d="m110 9 6 9-6 9-6-9Z"/>
+      <circle cx="78" cy="18" r="2"/><circle cx="142" cy="18" r="2"/>
+    </g>
+  </symbol>
+</defs></svg>
